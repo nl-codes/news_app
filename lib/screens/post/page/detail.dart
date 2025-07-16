@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:news_app/screens/post/widget/detail_account_header.dart';
+import 'package:news_app/screens/post/widget/detail_post_description.dart';
+import 'package:news_app/screens/search/widget/follow_button.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({super.key});
@@ -12,16 +14,34 @@ class DetailScreen extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(16.0, 20, 20, 0),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Navbar(),
-                    SizedBox(height: 10),
-                    AccountHeader(),
-                    SizedBox(height: 10),
-                    BodyDescription(),
-                    SizedBox(height: 20),
-                  ],
+              child: Column(
+                children: [
+                  Navbar(),
+                  SizedBox(height: 10),
+                  AccountHeader(
+                    imageUrl:
+                        'https://images.icon-icons.com/70/PNG/512/bbc_news_14062.png',
+                    accountTitle: "BBC News",
+                    updatedTime: "14m",
+                    isFollowed: true,
+                  ),
+                  SizedBox(height: 10),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SingleChildScrollView(
+                  child: BodyDescription(
+                    imageUrl:
+                        'https://t4.ftcdn.net/jpg/07/85/99/79/360_F_785997974_bFmPEPwMxgcdBCzfSmd0bZIdcgg3pnaf.jpg',
+                    genre: 'Europe',
+                    postTitle:
+                        "Ukraine's President Zelensky to BBC: Blood money being paid for Russian oil",
+                    postDescription:
+                        'Ukrainian President Volodymyr Zelensky has accusedt European countries that continue to buy Russian oil of "earning their money in other people\'s blood".\n\nIn an interview with the BBC, President Zelensky singled out Germany and Hungary, accusing them of blocking efforts to embargo energy sales, from which Russia stands to make up to £250bn (\$326bn) this year.\n\nThere has been a growing frustration among Ukraine\'s leadership with Berlin, which has backed some sanctions against Russia but so far resisted calls to back tougher action on oil sales.',
+                  ),
                 ),
               ),
             ),
@@ -48,85 +68,6 @@ class Navbar extends StatelessWidget {
             SizedBox(width: 12),
             Icon(Icons.more_vert),
           ],
-        ),
-      ],
-    );
-  }
-}
-
-class AccountHeader extends StatelessWidget {
-  const AccountHeader({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            Image.network(
-              'https://images.icon-icons.com/70/PNG/512/bbc_news_14062.png',
-              height: 50,
-              width: 50,
-            ),
-            SizedBox(width: 4),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("BBC News", style: TextStyle(fontWeight: FontWeight.w900)),
-                Text("14m ago"),
-              ],
-            ),
-          ],
-        ),
-        ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blueAccent,
-            foregroundColor: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-            textStyle: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5),
-            ),
-          ),
-          child: Text("Following"),
-        ),
-      ],
-    );
-  }
-}
-
-class BodyDescription extends StatelessWidget {
-  const BodyDescription({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: double.infinity,
-          height: 250,
-          child: Image.network(
-            'https://t4.ftcdn.net/jpg/07/85/99/79/360_F_785997974_bFmPEPwMxgcdBCzfSmd0bZIdcgg3pnaf.jpg',
-            fit: BoxFit.cover,
-          ),
-        ),
-        SizedBox(height: 10),
-        Text("Europe", style: TextStyle(fontWeight: FontWeight.bold)),
-        SizedBox(height: 4),
-        Text(
-          "Ukraine's President Zelensky to BBC: Blood money being paid for Russian oil",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 10),
-        Text(
-          'Ukrainian President Volodymyr Zelensky has accusedt European countries that continue to buy Russian oil of "earning their money in other people\'s blood".',
-        ),
-        SizedBox(height: 14),
-        Text(
-          'In an interview with the BBC, President Zelensky singled out Germany and Hungary, accusing them of blocking efforts to embargo energy sales, from which Russia stands to make up to £250bn (\$326bn) this year.',
         ),
       ],
     );
