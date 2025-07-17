@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/screens/post/widget/detail_account_header.dart';
 import 'package:news_app/screens/post/widget/detail_post_description.dart';
-import 'package:news_app/screens/search/widget/follow_button.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({super.key});
