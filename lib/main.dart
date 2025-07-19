@@ -7,6 +7,7 @@ import 'package:news_app/screens/onboarding/page/onboarding_three.dart';
 import 'package:news_app/screens/post/page/comment.dart';
 import 'package:news_app/screens/post/page/detail.dart';
 import 'package:news_app/screens/search/page/serach_by_author.dart';
+import 'package:news_app/screens/signup/page/signup_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.poppinsTextTheme(),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const LoginScreen(),
+      home: const SignupScreen(),
     );
   }
 }
