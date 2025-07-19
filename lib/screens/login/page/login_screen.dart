@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/repo/auth_repo.dart';
+import 'package:news_app/screens/signup/page/signup_screen.dart';
 import 'package:news_app/states/bloc/auth_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -179,13 +180,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           Text("don't have an account ?"),
                           SizedBox(width: 4),
                           GestureDetector(
-                            onTap: () => authCubit.signUp(
-                              emailController.text.trim(),
-                              passwordController.text.trim(),
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SignupScreen(),
+                              ),
                             ),
                             child: Text(
                               "Sign Up",
-                              style: TextStyle(color: Colors.blueAccent),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blueAccent,
+                              ),
                             ),
                           ),
                         ],
