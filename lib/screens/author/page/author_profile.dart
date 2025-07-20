@@ -37,6 +37,9 @@ class AuthorProfileScreen extends StatelessWidget {
                       "Ukraine's President Zelensky to BBC: Bollod money being paid to the honor of Sosuke Aizen.",
                   genre: "Europe",
                   time: "14m",
+                  accountImage:
+                      'https://images.icon-icons.com/70/PNG/512/bbc_news_14062.png',
+                  accountName: 'BBC News',
                 ),
                 SizedBox(height: 16),
                 NewsCard(
@@ -45,6 +48,9 @@ class AuthorProfileScreen extends StatelessWidget {
                   title: "Frankfurt stun Barcelona to reach semi-finals",
                   genre: "Sport",
                   time: "1h",
+                  accountImage:
+                      'https://images.icon-icons.com/70/PNG/512/bbc_news_14062.png',
+                  accountName: 'BBC News',
                 ),
                 SizedBox(height: 16),
                 NewsCard(
@@ -53,6 +59,9 @@ class AuthorProfileScreen extends StatelessWidget {
                   title: "Russina warship: Moskva sinks in the Black sea",
                   genre: "Europe",
                   time: "4h",
+                  accountImage:
+                      'https://images.icon-icons.com/70/PNG/512/bbc_news_14062.png',
+                  accountName: 'BBC News',
                 ),
                 SizedBox(height: 16),
                 NewsCard(
@@ -62,6 +71,9 @@ class AuthorProfileScreen extends StatelessWidget {
                       "What is the world is happening here? God knows. Do I want to do it? Yes. Lesssgoooooo.",
                   genre: "Enthusiasm",
                   time: "2y",
+                  accountImage:
+                      'https://images.icon-icons.com/70/PNG/512/bbc_news_14062.png',
+                  accountName: 'BBC News',
                 ),
               ],
             ),
