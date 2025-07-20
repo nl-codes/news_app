@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text("Welcome ${state.user.email}!")),
                       );
-                    case Unauthenticated state:
+                    case Unauthenticated _:
                       setState(() {
                         isloading = false;
                       });
