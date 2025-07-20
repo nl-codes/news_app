@@ -5,11 +5,17 @@ class NewsCard extends StatelessWidget {
   final String title;
   final String genre;
   final String time;
+  final String accountImage;
+  final String accountName;
+
   const NewsCard({
     required this.imageUrl,
     required this.title,
     required this.genre,
     required this.time,
+    required this.accountImage,
+    required this.accountName,
+
     super.key,
   });
 
@@ -42,20 +48,27 @@ class NewsCard extends StatelessWidget {
                     children: [
                       ClipOval(
                         child: Image.network(
-                          'https://images.icon-icons.com/70/PNG/512/bbc_news_14062.png',
+                          accountImage,
                           width: 20,
                           height: 20,
                           fit: BoxFit.cover,
                         ),
                       ),
                       SizedBox(width: 2),
-                      Text('BBC News'),
+                      Text(
+                        accountName,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                       SizedBox(width: 4),
-                      Icon(Icons.watch_later_outlined, size: 20),
-                      Text("$time ago"),
+                      Icon(
+                        Icons.watch_later_outlined,
+                        size: 20,
+                        color: Colors.grey,
+                      ),
+                      Text("$time ago", style: TextStyle(color: Colors.grey)),
                     ],
                   ),
-                  Icon(Icons.more_horiz, size: 20),
+                  Icon(Icons.more_horiz, size: 20, color: Colors.grey),
                 ],
               ),
             ],
