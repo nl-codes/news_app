@@ -24,28 +24,36 @@ class BottomBar extends StatelessWidget {
           children: [
             _IconHolder(
               isSelected: selectedIcon.toLowerCase() == "home" ? true : false,
-              icon: Icons.home_outlined,
+              icon: selectedIcon.toLowerCase() == "home"
+                  ? Icons.home
+                  : Icons.home_outlined,
               iconName: "Home",
             ),
             _IconHolder(
               isSelected: selectedIcon.toLowerCase() == "explore"
                   ? true
                   : false,
-              icon: Icons.explore_outlined,
+              icon: selectedIcon.toLowerCase() == "explore"
+                  ? Icons.explore
+                  : Icons.explore_outlined,
               iconName: "Explore",
             ),
             _IconHolder(
               isSelected: selectedIcon.toLowerCase() == "bookmark"
                   ? true
                   : false,
-              icon: Icons.bookmark,
+              icon: selectedIcon.toLowerCase() == "bookmark"
+                  ? Icons.bookmark
+                  : Icons.bookmark_outline,
               iconName: "Bookmark",
             ),
             _IconHolder(
               isSelected: selectedIcon.toLowerCase() == "profile"
                   ? true
                   : false,
-              icon: Icons.person_pin_circle_outlined,
+              icon: selectedIcon.toLowerCase() == "profile"
+                  ? Icons.person_pin
+                  : Icons.person_pin_circle_outlined,
               iconName: "Profile",
             ),
           ],

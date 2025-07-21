@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/screens/author/page/author_profile.dart';
 import 'package:news_app/screens/bookmark/page/bookmark_screen.dart';
+// import 'package:news_app/screens/bookmark/page/bookmark_screen.dart';
 import 'package:news_app/screens/home/page/homepage_screen.dart';
 // import 'package:news_app/screens/login/page/login_screen.dart';
 import 'package:news_app/screens/onboarding/page/onboarding_three.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => OnboardingThree(),
         '/home': (context) => HomepageScreen(),
         '/author': (context) => AuthorProfileScreen(),
+        '/bookmark': (context) => BookmarkScreen(),
       },
       theme: ThemeData(
         textTheme: GoogleFonts.poppinsTextTheme(),

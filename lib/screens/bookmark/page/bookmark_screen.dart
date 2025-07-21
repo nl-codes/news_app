@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/screens/author/widget/news_card.dart';
+import 'package:news_app/widgets/news_card.dart';
 import 'package:news_app/widgets/bottom_bar.dart';
+import 'package:news_app/widgets/search_bar.dart';
 
 class BookmarkScreen extends StatelessWidget {
   const BookmarkScreen({super.key});
@@ -104,27 +105,8 @@ class Header extends StatelessWidget {
             "Bookmark",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 36),
           ),
-          SearchBar(),
+          SearchingBar(),
         ],
-      ),
-    );
-  }
-}
-
-class SearchBar extends StatelessWidget {
-  const SearchBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 8),
-      child: TextField(
-        decoration: InputDecoration(
-          hintText: "Search",
-          prefixIcon: Icon(Icons.search_outlined),
-          suffixIcon: Icon(Icons.more_vert),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
-        ),
       ),
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/screens/author/widget/account_description.dart';
 import 'package:news_app/screens/author/widget/account_status.dart';
 import 'package:news_app/screens/author/widget/follow_button.dart';
-import 'package:news_app/screens/author/widget/news_card.dart';
+import 'package:news_app/widgets/news_card.dart';
 
 class AuthorProfileScreen extends StatelessWidget {
   const AuthorProfileScreen({super.key});
