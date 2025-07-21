@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class BottomBar extends StatelessWidget {
-  const BottomBar({super.key});
+  final String selectedIcon;
+  const BottomBar({required this.selectedIcon, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,22 +23,28 @@ class BottomBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _IconHolder(
-              isSelected: false,
+              isSelected: selectedIcon.toLowerCase() == "home" ? true : false,
               icon: Icons.home_outlined,
               iconName: "Home",
             ),
             _IconHolder(
-              isSelected: false,
+              isSelected: selectedIcon.toLowerCase() == "explore"
+                  ? true
+                  : false,
               icon: Icons.explore_outlined,
               iconName: "Explore",
             ),
             _IconHolder(
-              isSelected: true,
+              isSelected: selectedIcon.toLowerCase() == "bookmark"
+                  ? true
+                  : false,
               icon: Icons.bookmark,
               iconName: "Bookmark",
             ),
             _IconHolder(
-              isSelected: false,
+              isSelected: selectedIcon.toLowerCase() == "profile"
+                  ? true
+                  : false,
               icon: Icons.person_pin_circle_outlined,
               iconName: "Profile",
             ),
