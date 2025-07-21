@@ -82,7 +82,7 @@ class BookmarkScreen extends StatelessWidget {
                 ),
               ),
             ),
-            BottomBar(),
+            BottomBar(selectedIcon: "Bookmark"),
           ],
         ),
       ),
