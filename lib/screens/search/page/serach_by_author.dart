@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/screens/author/page/author_profile.dart';
 import 'package:news_app/screens/search/widget/follow_button.dart';
 import 'package:news_app/screens/search/widget/search_by_option.dart';
 
 class SearchByAuthorScreen extends StatelessWidget {
-  const SearchByAuthorScreen({super.key});
+  final String userName;
+  const SearchByAuthorScreen({required this.userName, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +15,7 @@ class SearchByAuthorScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
           child: Column(
             children: [
+              Text("Welcome $userName"),
               SearchBar(),
               SearchByOption("author"),
               SizedBox(height: 20),
@@ -20,20 +23,35 @@ class SearchByAuthorScreen extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      NewsProfile(
-                        title: "BBC News",
-                        imageUrl:
-                            "https://images.icon-icons.com/70/PNG/512/bbc_news_14062.png",
-                        followers: "1.2M",
-                        isFollowed: true,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AuthorProfileScreen(),
+                            ),
+                          );
+                        },
+                        child: NewsProfile(
+                          title: "BBC News",
+                          imageUrl:
+                              "https://images.icon-icons.com/70/PNG/512/bbc_news_14062.png",
+                          followers: "1.2M",
+                          isFollowed: true,
+                        ),
                       ),
                       SizedBox(height: 40),
-                      NewsProfile(
-                        title: "CNN",
-                        imageUrl:
-                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/CNN_International_logo.svg/1200px-CNN_International_logo.svg.png",
-                        followers: "959K",
-                        isFollowed: false,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, "/author");
+                        },
+                        child: NewsProfile(
+                          title: "CNN",
+                          imageUrl:
+                              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/CNN_International_logo.svg/1200px-CNN_International_logo.svg.png",
+                          followers: "959K",
+                          isFollowed: false,
+                        ),
                       ),
                       SizedBox(height: 40),
                       NewsProfile(

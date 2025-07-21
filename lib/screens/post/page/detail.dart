@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/screens/bookmark/page/bookmark_screen.dart';
+import 'package:news_app/screens/post/page/comment.dart';
 import 'package:news_app/screens/post/widget/detail_account_header.dart';
 import 'package:news_app/screens/post/widget/detail_post_description.dart';
 
@@ -100,12 +102,32 @@ class Footer extends StatelessWidget {
                 SizedBox(width: 4),
                 Text("24.5K", style: TextStyle(fontWeight: FontWeight.bold)),
                 SizedBox(width: 20),
-                Icon(Icons.message_outlined),
-                SizedBox(width: 4),
-                Text("1K", style: TextStyle(fontWeight: FontWeight.bold)),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CommentScreen()),
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      Icon(Icons.message_outlined),
+                      SizedBox(width: 4),
+                      Text("1K", style: TextStyle(fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
               ],
             ),
-            Icon(Icons.bookmark, color: Colors.blue),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BookmarkScreen()),
+                );
+              },
+              child: Icon(Icons.bookmark, color: Colors.blue),
+            ),
           ],
         ),
       ),

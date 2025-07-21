@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/repo/auth_repo.dart';
+import 'package:news_app/screens/bookmark/page/bookmark_screen.dart';
+import 'package:news_app/screens/search/page/serach_by_author.dart';
 import 'package:news_app/screens/signup/page/signup_screen.dart';
 import 'package:news_app/states/bloc/auth_bloc.dart';
 
@@ -72,6 +74,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text("Welcome ${state.user.email}!")),
                       );
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SearchByAuthorScreen(
+                            userName: emailController.text.trim(),
+                          ),
+                        ),
+                      );
+
                     case Unauthenticated _:
                       setState(() {
                         isloading = false;
@@ -195,6 +207,18 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ],
+                      ),
+                      GestureDetector(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BookmarkScreen(),
+                          ),
+                        ),
+                        child: Text(
+                          "Go to bookmark",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ],
                   );
