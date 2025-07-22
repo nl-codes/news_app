@@ -9,6 +9,7 @@ import 'package:news_app/screens/notification/page/notification_screen.dart';
 // import 'package:news_app/screens/login/page/login_screen.dart';
 import 'package:news_app/screens/onboarding/page/onboarding_three.dart';
 import 'package:news_app/screens/profile/page/add/profile_form_screen.dart';
+import 'package:news_app/screens/search/page/search_by_news.dart';
 import 'package:news_app/screens/trending/page/trending_screen.dart';
 // import 'package:news_app/screens/signup/page/signup_screen.dart';
 // import 'package:news_app/screens/author/page/author_profile.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'News App',
-      initialRoute: '/profile/edit',
+      initialRoute: '/search/news',
       routes: {
         '/': (context) => OnboardingThree(),
         '/home': (context) => HomepageScreen(),
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         '/trending': (context) => TrendingScreen(),
         '/notification': (context) => NotificationScreen(),
         '/profile/edit': (context) => ProfileFormScreen(),
+        '/search/news': (context) => SearchByNews(),
       },
       theme: ThemeData(
         textTheme: GoogleFonts.poppinsTextTheme(),
