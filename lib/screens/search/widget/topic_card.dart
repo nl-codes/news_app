@@ -29,7 +29,7 @@ class TopicCard extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        SizedBox(width: 5),
+        SizedBox(width: 4),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,6 +40,7 @@ class TopicCard extends StatelessWidget {
             ],
           ),
         ),
+        SizedBox(width: 4),
         SaveButton(isSaved: isSaved),
       ],
     );

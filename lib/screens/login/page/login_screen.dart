@@ -78,9 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SearchByAuthorScreen(
-                            userName: emailController.text.trim(),
-                          ),
+                          builder: (context) => SearchByAuthorScreen(),
                         ),
                       );
 

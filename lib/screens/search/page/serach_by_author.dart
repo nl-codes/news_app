@@ -4,8 +4,7 @@ import 'package:news_app/screens/search/widget/follow_button.dart';
 import 'package:news_app/screens/search/widget/search_by_option.dart';
 
 class SearchByAuthorScreen extends StatelessWidget {
-  final String userName;
-  const SearchByAuthorScreen({required this.userName, super.key});
+  const SearchByAuthorScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,6 @@ class SearchByAuthorScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
           child: Column(
             children: [
-              Text("Welcome $userName"),
               SearchBar(),
               SearchByOption("author"),
               SizedBox(height: 20),

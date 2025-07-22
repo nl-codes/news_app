@@ -3,8 +3,8 @@ import 'package:news_app/screens/search/widget/follow_button.dart';
 import 'package:news_app/screens/search/widget/search_by_option.dart';
 import 'package:news_app/widgets/news_card.dart';
 
-class SearchByNews extends StatelessWidget {
-  const SearchByNews({super.key});
+class SearchByNewsScreen extends StatelessWidget {
+  const SearchByNewsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
