@@ -27,7 +27,12 @@ class HomepageScreen extends StatelessWidget {
                     children: [
                       SearchingBar(),
                       SizedBox(height: 16),
-                      TitleSeeAll(title: "Trending"),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/trending');
+                        },
+                        child: TitleSeeAll(title: "Trending"),
+                      ),
                       SizedBox(height: 16),
                       LargeNewsCard(
                         imageUrl:

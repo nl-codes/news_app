@@ -22,12 +22,15 @@ class BottomBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _IconHolder(
-              isSelected: selectedIcon.toLowerCase() == "home" ? true : false,
-              icon: selectedIcon.toLowerCase() == "home"
-                  ? Icons.home
-                  : Icons.home_outlined,
-              iconName: "Home",
+            GestureDetector(
+              onTap: () => Navigator.pushNamed(context, "/home"),
+              child: _IconHolder(
+                isSelected: selectedIcon.toLowerCase() == "home" ? true : false,
+                icon: selectedIcon.toLowerCase() == "home"
+                    ? Icons.home
+                    : Icons.home_outlined,
+                iconName: "Home",
+              ),
             ),
             _IconHolder(
               isSelected: selectedIcon.toLowerCase() == "explore"
@@ -38,14 +41,17 @@ class BottomBar extends StatelessWidget {
                   : Icons.explore_outlined,
               iconName: "Explore",
             ),
-            _IconHolder(
-              isSelected: selectedIcon.toLowerCase() == "bookmark"
-                  ? true
-                  : false,
-              icon: selectedIcon.toLowerCase() == "bookmark"
-                  ? Icons.bookmark
-                  : Icons.bookmark_outline,
-              iconName: "Bookmark",
+            GestureDetector(
+              onTap: () => Navigator.pushNamed(context, '/bookmark'),
+              child: _IconHolder(
+                isSelected: selectedIcon.toLowerCase() == "bookmark"
+                    ? true
+                    : false,
+                icon: selectedIcon.toLowerCase() == "bookmark"
+                    ? Icons.bookmark
+                    : Icons.bookmark_outline,
+                iconName: "Bookmark",
+              ),
             ),
             _IconHolder(
               isSelected: selectedIcon.toLowerCase() == "profile"

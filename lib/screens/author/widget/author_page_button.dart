@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class FollowButton extends StatelessWidget {
+class AuthorPageButton extends StatelessWidget {
   final String buttonText;
-  const FollowButton({required this.buttonText, super.key});
+  const AuthorPageButton({required this.buttonText, super.key});
 
   @override
   Widget build(BuildContext context) {

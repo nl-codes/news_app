@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/screens/author/widget/account_description.dart';
 import 'package:news_app/screens/author/widget/account_status.dart';
-import 'package:news_app/screens/author/widget/follow_button.dart';
+import 'package:news_app/screens/author/widget/author_page_button.dart';
 import 'package:news_app/widgets/news_card.dart';
 
 class AuthorProfileScreen extends StatelessWidget {
@@ -25,8 +25,8 @@ class AuthorProfileScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    FollowButton(buttonText: "Following"),
-                    FollowButton(buttonText: "Website"),
+                    AuthorPageButton(buttonText: "Following"),
+                    AuthorPageButton(buttonText: "Website"),
                   ],
                 ),
                 SizedBox(height: 16),
