@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/screens/author/page/author_profile.dart';
 import 'package:news_app/screens/bookmark/page/bookmark_screen.dart';
+import 'package:news_app/screens/explore/page/explore_screen.dart';
 // import 'package:news_app/screens/bookmark/page/bookmark_screen.dart';
 import 'package:news_app/screens/home/page/homepage_screen.dart';
 import 'package:news_app/screens/notification/page/notification_screen.dart';
@@ -34,10 +35,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'News App',
-      initialRoute: '/search/author',
+      initialRoute: '/explore',
       routes: {
         '/': (context) => OnboardingThree(),
         '/home': (context) => HomepageScreen(),
+        '/explore': (context) => ExploreScreen(),
         '/author': (context) => AuthorProfileScreen(),
         '/bookmark': (context) => BookmarkScreen(),
         '/trending': (context) => TrendingScreen(),
