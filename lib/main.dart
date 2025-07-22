@@ -8,6 +8,7 @@ import 'package:news_app/screens/home/page/homepage_screen.dart';
 import 'package:news_app/screens/notification/page/notification_screen.dart';
 // import 'package:news_app/screens/login/page/login_screen.dart';
 import 'package:news_app/screens/onboarding/page/onboarding_three.dart';
+import 'package:news_app/screens/profile/page/add/profile_form_screen.dart';
 import 'package:news_app/screens/trending/page/trending_screen.dart';
 // import 'package:news_app/screens/signup/page/signup_screen.dart';
 // import 'package:news_app/screens/author/page/author_profile.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'News App',
-      initialRoute: '/notification',
+      initialRoute: '/profile/edit',
       routes: {
         '/': (context) => OnboardingThree(),
         '/home': (context) => HomepageScreen(),
@@ -38,10 +39,12 @@ class MyApp extends StatelessWidget {
         '/bookmark': (context) => BookmarkScreen(),
         '/trending': (context) => TrendingScreen(),
         '/notification': (context) => NotificationScreen(),
+        '/profile/edit': (context) => ProfileFormScreen(),
       },
       theme: ThemeData(
         textTheme: GoogleFonts.poppinsTextTheme(),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
+        scaffoldBackgroundColor: Colors.white,
       ),
       // home: const OnboardingThree(),
     );
