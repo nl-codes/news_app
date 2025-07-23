@@ -19,21 +19,24 @@ class AccountHeader extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          children: [
-            Image.network(imageUrl, height: 50, width: 50),
-            SizedBox(width: 4),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  accountTitle,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Text("$updatedTime ago"),
-              ],
-            ),
-          ],
+        GestureDetector(
+          onTap: () => Navigator.pushNamed(context, '/author'),
+          child: Row(
+            children: [
+              Image.network(imageUrl, height: 50, width: 50),
+              SizedBox(width: 4),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    accountTitle,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text("$updatedTime ago"),
+                ],
+              ),
+            ],
+          ),
         ),
         FollowButton(isFollowed: isFollowed),
       ],

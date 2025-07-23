@@ -18,12 +18,9 @@ class OnboardingThree extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text("Welcome to the News App", style: TextStyle(fontSize: 30)),
                 Text(
-                  "Kurosaki Ichigo no Saigono Getsuga",
-                  style: TextStyle(fontSize: 30),
-                ),
-                Text(
-                  "Dangai keitai wa, BLEACH no naka de Kurosaki Ichigo ga Aizen Sousuke to no tatakai de miseta saikyō no sugata desu.",
+                  "Click Get Started to start your journey in this platform...",
                 ),
                 SizedBox(height: 60),
                 Row(
@@ -32,9 +29,12 @@ class OnboardingThree extends StatelessWidget {
                     Icon(Icons.more_horiz, size: 60, color: Colors.grey),
                     Row(
                       children: [
-                        Text(
-                          "Back",
-                          style: TextStyle(fontSize: 16, color: Colors.grey),
+                        GestureDetector(
+                          onTap: () => Navigator.pushNamed(context, '/'),
+                          child: Text(
+                            "Back",
+                            style: TextStyle(fontSize: 16, color: Colors.grey),
+                          ),
                         ),
                         SizedBox(width: 10),
                         ElevatedButton(

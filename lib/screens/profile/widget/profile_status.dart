@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AccountStatus extends StatelessWidget {
-  const AccountStatus({super.key});
+class ProfileStatus extends StatelessWidget {
+  const ProfileStatus({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class AccountStatus extends StatelessWidget {
       children: [
         ClipOval(
           child: Image.network(
-            'https://images.icon-icons.com/70/PNG/512/bbc_news_14062.png',
+            'https://i.pinimg.com/736x/78/19/4e/78194e018be444f16f0dd87f4925e746.jpg',
             height: 100.0,
             width: 100.0,
             fit: BoxFit.cover,
@@ -19,7 +19,7 @@ class AccountStatus extends StatelessWidget {
         Column(
           children: [
             Text(
-              "124K",
+              "1B",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             Text(
@@ -31,7 +31,7 @@ class AccountStatus extends StatelessWidget {
         Column(
           children: [
             Text(
-              "41.2K",
+              "100",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             Text(
@@ -43,7 +43,7 @@ class AccountStatus extends StatelessWidget {
         Column(
           children: [
             Text(
-              "301",
+              "1K",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             Text("News", style: TextStyle(fontSize: 12, color: Colors.grey)),

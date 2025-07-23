@@ -1,0 +1,26 @@
+import 'package:flutter/material.dart';
+
+class CreateNewsHeader extends StatelessWidget {
+  const CreateNewsHeader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Icon(Icons.arrow_back),
+          ),
+          Text(
+            "Create News",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+          Icon(Icons.more_vert),
+        ],
+      ),
+    );
+  }
+}

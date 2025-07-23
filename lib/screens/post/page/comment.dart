@@ -102,7 +102,10 @@ class Navbar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Icon(Icons.arrow_back),
+        GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Icon(Icons.arrow_back),
+        ),
         Text("Comments", style: TextStyle(fontSize: 18)),
         Icon(Icons.arrow_back, color: Colors.white),
       ],

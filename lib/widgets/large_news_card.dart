@@ -20,50 +20,57 @@ class LargeNewsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(5),
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: 200,
-            child: Image.network(imageUrl, fit: BoxFit.cover),
-          ),
-        ),
-
-        SizedBox(height: 5),
-        Text(genre),
-        SizedBox(height: 5),
-        Text(title, overflow: TextOverflow.ellipsis, maxLines: 1),
-        SizedBox(height: 5),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                ClipOval(
-                  child: Image.network(
-                    accountImage,
-                    width: 20,
-                    height: 20,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                SizedBox(width: 2),
-                Text(
-                  accountName,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                SizedBox(width: 4),
-                Icon(Icons.watch_later_outlined, size: 20, color: Colors.grey),
-                Text("$time ago", style: TextStyle(color: Colors.grey)),
-              ],
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, '/post/view'),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(5),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 200,
+              child: Image.network(imageUrl, fit: BoxFit.cover),
             ),
-            Icon(Icons.more_horiz, size: 20, color: Colors.grey),
-          ],
-        ),
-      ],
+          ),
+
+          SizedBox(height: 5),
+          Text(genre),
+          SizedBox(height: 5),
+          Text(title, overflow: TextOverflow.ellipsis, maxLines: 1),
+          SizedBox(height: 5),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  ClipOval(
+                    child: Image.network(
+                      accountImage,
+                      width: 20,
+                      height: 20,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  SizedBox(width: 2),
+                  Text(
+                    accountName,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(width: 4),
+                  Icon(
+                    Icons.watch_later_outlined,
+                    size: 20,
+                    color: Colors.grey,
+                  ),
+                  Text("$time ago", style: TextStyle(color: Colors.grey)),
+                ],
+              ),
+              Icon(Icons.more_horiz, size: 20, color: Colors.grey),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

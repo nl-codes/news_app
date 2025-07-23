@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class SearchByOption extends StatelessWidget {
+class NewsRecentOption extends StatelessWidget {
   final String selectedOption;
-  const SearchByOption(this.selectedOption, {super.key});
+  const NewsRecentOption({required this.selectedOption, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,20 +13,9 @@ class SearchByOption extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: () => Navigator.pushNamed(context, '/search/news'),
-              child: _buildOption("News"),
-            ),
+            _buildOption("News"),
             SizedBox(width: 20),
-            GestureDetector(
-              onTap: () => Navigator.pushNamed(context, '/search/topic'),
-              child: _buildOption("Topics"),
-            ),
-            SizedBox(width: 20),
-            GestureDetector(
-              onTap: () => Navigator.pushNamed(context, '/search/author'),
-              child: _buildOption("Author"),
-            ),
+            _buildOption("Recent"),
           ],
         ),
       ],

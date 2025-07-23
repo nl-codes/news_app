@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/screens/author/page/author_profile.dart';
 import 'package:news_app/screens/search/widget/follow_button.dart';
 import 'package:news_app/screens/search/widget/search_by_option.dart';
+import 'package:news_app/screens/search/widget/search_header.dart';
 
 class SearchByAuthorScreen extends StatelessWidget {
   const SearchByAuthorScreen({super.key});
@@ -14,42 +14,27 @@ class SearchByAuthorScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
           child: Column(
             children: [
-              SearchBar(),
+              SearchHeader(),
               SearchByOption("author"),
               SizedBox(height: 20),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AuthorProfileScreen(),
-                            ),
-                          );
-                        },
-                        child: NewsProfile(
-                          title: "BBC News",
-                          imageUrl:
-                              "https://images.icon-icons.com/70/PNG/512/bbc_news_14062.png",
-                          followers: "1.2M",
-                          isFollowed: true,
-                        ),
+                      NewsProfile(
+                        title: "BBC News",
+                        imageUrl:
+                            "https://images.icon-icons.com/70/PNG/512/bbc_news_14062.png",
+                        followers: "1.2M",
+                        isFollowed: true,
                       ),
                       SizedBox(height: 40),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, "/author");
-                        },
-                        child: NewsProfile(
-                          title: "CNN",
-                          imageUrl:
-                              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/CNN_International_logo.svg/1200px-CNN_International_logo.svg.png",
-                          followers: "959K",
-                          isFollowed: false,
-                        ),
+                      NewsProfile(
+                        title: "CNN",
+                        imageUrl:
+                            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/CNN_International_logo.svg/1200px-CNN_International_logo.svg.png",
+                        followers: "959K",
+                        isFollowed: false,
                       ),
                       SizedBox(height: 40),
                       NewsProfile(
@@ -103,37 +88,6 @@ class SearchByAuthorScreen extends StatelessWidget {
   }
 }
 
-class SearchBar extends StatelessWidget {
-  const SearchBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: Colors.white,
-        border: Border.all(width: 1),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.search, size: 20),
-                SizedBox(width: 10),
-                Text("Search ..."),
-              ],
-            ),
-            Icon(Icons.close, size: 20),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class NewsProfile extends StatelessWidget {
   final String imageUrl;
   final String title;
@@ -150,33 +104,36 @@ class NewsProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ClipOval(
-              child: Image.network(
-                imageUrl,
-                width: 60,
-                height: 60,
-                fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, '/author'),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ClipOval(
+                child: Image.network(
+                  imageUrl,
+                  width: 60,
+                  height: 60,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-                Text("$followers Followers"),
-              ],
-            ),
-          ],
-        ),
-        FollowButton(isFollowed: isFollowed),
-      ],
+              SizedBox(width: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text("$followers Followers"),
+                ],
+              ),
+            ],
+          ),
+          FollowButton(isFollowed: isFollowed),
+        ],
+      ),
     );
   }
 }

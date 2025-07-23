@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/screens/search/widget/follow_button.dart';
 import 'package:news_app/screens/search/widget/search_by_option.dart';
+import 'package:news_app/screens/search/widget/search_header.dart';
 import 'package:news_app/widgets/news_card.dart';
 
 class SearchByNewsScreen extends StatelessWidget {
@@ -14,7 +15,7 @@ class SearchByNewsScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
           child: Column(
             children: [
-              SearchBar(),
+              SearchHeader(),
               SearchByOption("news"),
               SizedBox(height: 20),
               Expanded(
@@ -85,37 +86,6 @@ class SearchByNewsScreen extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class SearchBar extends StatelessWidget {
-  const SearchBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: Colors.white,
-        border: Border.all(width: 1),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.search, size: 20),
-                SizedBox(width: 10),
-                Text("Search ..."),
-              ],
-            ),
-            Icon(Icons.close, size: 20),
-          ],
         ),
       ),
     );

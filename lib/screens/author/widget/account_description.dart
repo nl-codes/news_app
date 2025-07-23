@@ -10,7 +10,7 @@ class AccountDescription extends StatelessWidget {
       children: [
         Text("BBC News", style: TextStyle(fontSize: 20)),
         Text(
-          "is an operational business division of the British Broadcasting Corporation responsible for the gathering and broadcasting of news and current affairs.",
+          "is the UK's public service broadcaster. It is a publicly funded organization that provides impartial broadcasting services across television, radio, and online platforms.",
         ),
       ],
     );

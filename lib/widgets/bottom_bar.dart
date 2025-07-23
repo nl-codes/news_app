@@ -32,14 +32,17 @@ class BottomBar extends StatelessWidget {
                 iconName: "Home",
               ),
             ),
-            _IconHolder(
-              isSelected: selectedIcon.toLowerCase() == "explore"
-                  ? true
-                  : false,
-              icon: selectedIcon.toLowerCase() == "explore"
-                  ? Icons.explore
-                  : Icons.explore_outlined,
-              iconName: "Explore",
+            GestureDetector(
+              onTap: () => Navigator.pushNamed(context, '/explore'),
+              child: _IconHolder(
+                isSelected: selectedIcon.toLowerCase() == "explore"
+                    ? true
+                    : false,
+                icon: selectedIcon.toLowerCase() == "explore"
+                    ? Icons.explore
+                    : Icons.explore_outlined,
+                iconName: "Explore",
+              ),
             ),
             GestureDetector(
               onTap: () => Navigator.pushNamed(context, '/bookmark'),
@@ -53,14 +56,17 @@ class BottomBar extends StatelessWidget {
                 iconName: "Bookmark",
               ),
             ),
-            _IconHolder(
-              isSelected: selectedIcon.toLowerCase() == "profile"
-                  ? true
-                  : false,
-              icon: selectedIcon.toLowerCase() == "profile"
-                  ? Icons.person_pin
-                  : Icons.person_pin_circle_outlined,
-              iconName: "Profile",
+            GestureDetector(
+              onTap: () => Navigator.pushNamed(context, '/profile/view'),
+              child: _IconHolder(
+                isSelected: selectedIcon.toLowerCase() == "profile"
+                    ? true
+                    : false,
+                icon: selectedIcon.toLowerCase() == "profile"
+                    ? Icons.person_pin
+                    : Icons.person_pin_circle_outlined,
+                iconName: "Profile",
+              ),
             ),
           ],
         ),

@@ -10,7 +10,10 @@ class SearchingBar extends StatelessWidget {
       child: TextField(
         decoration: InputDecoration(
           hintText: "Search",
-          prefixIcon: Icon(Icons.search_outlined),
+          prefixIcon: GestureDetector(
+            onTap: () => Navigator.pushNamed(context, '/search/news'),
+            child: Icon(Icons.search_outlined),
+          ),
           suffixIcon: Icon(Icons.more_vert),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
         ),
