@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/model/top_news_api_model.dart';
+import 'package:news_app/core/network/news_service.dart';
 import 'package:news_app/screens/author/widget/author_page_button.dart';
 import 'package:news_app/screens/profile/widget/news_recent_option.dart';
 import 'package:news_app/screens/profile/widget/profile_description.dart';
@@ -6,8 +8,54 @@ import 'package:news_app/screens/profile/widget/profile_status.dart';
 import 'package:news_app/widgets/bottom_bar.dart';
 import 'package:news_app/widgets/news_card.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  NewsService apiService = NewsService();
+  TopNewsApiModel? news;
+
+  bool isLoading = false;
+  bool isError = false;
+  String? errMsg;
+
+  void getNewsInfo() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      final res = await apiService.fetchTopNews();
+      setState(() {
+        isLoading = false;
+      });
+      if (res.statusCode == 200) {
+        setState(() {
+          news = TopNewsApiModel.fromJson(res.data);
+        });
+      } else {
+        setState(() {
+          isError = true;
+          errMsg = "Something went wrong ${res.toString()}";
+        });
+      }
+      print("Data fetched successfully ${res.toString()}");
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      print("Something went wrong with api : $e");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getNewsInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,65 +85,33 @@ class ProfileScreen extends StatelessWidget {
                             ],
                           ),
                           NewsRecentOption(selectedOption: "recent"),
-                          SizedBox(height: 16),
-                          NewsCard(
-                            imageUrl:
-                                "https://ichef.bbci.co.uk/news/800/cpsprodpb/15192/production/_124181468_zel3.jpg.webp",
-                            title:
-                                "Ukraine's President Zelensky to BBC: Bollod money being paid to the honor of Sosuke Aizen.",
-                            genre: "Europe",
-                            time: "14m",
-                            accountImage:
-                                'https://i.pinimg.com/736x/78/19/4e/78194e018be444f16f0dd87f4925e746.jpg',
-                            accountName: 'BBC News',
-                          ),
-                          SizedBox(height: 28),
-                          NewsCard(
-                            imageUrl:
-                                "https://media.cnn.com/api/v1/images/stellar/prod/220412091330-9-chance-encounters-sarah-gostling.jpg?c=original",
-                            title:
-                                "Her train broke down. Her phone died. And then she met her Great great grandparents",
-                            genre: "Travel",
-                            time: "1h",
-                            accountImage:
-                                'https://i.pinimg.com/736x/78/19/4e/78194e018be444f16f0dd87f4925e746.jpg',
-                            accountName: 'CNN',
-                          ),
-                          SizedBox(height: 28),
-                          NewsCard(
-                            imageUrl:
-                                "https://ichef.bbci.co.uk/news/480/cpsprodpb/AF92/production/_124164944_gettyimages-501782322.jpg.webp",
-                            title: "Russia warship: Moskva sinks in Black Sea",
-                            genre: "Europe",
-                            time: "4h",
-                            accountImage:
-                                'https://i.pinimg.com/736x/78/19/4e/78194e018be444f16f0dd87f4925e746.jpg',
-                            accountName: 'BBC News',
-                          ),
-                          SizedBox(height: 28),
-                          NewsCard(
-                            imageUrl:
-                                "https://static.scientificamerican.com/sciam/cache/file/FC384CF9-1EA0-4E3A-99BE273A24C02688_source.jpg?crop=16%3A9%2Csmart&w=1920",
-                            title:
-                                "Wind power produced more electricity than coal and nucturing baby could ever.",
-                            genre: "Money",
-                            time: "4h",
-                            accountImage:
-                                'https://i.pinimg.com/736x/78/19/4e/78194e018be444f16f0dd87f4925e746.jpg',
-                            accountName: 'USA Today',
-                          ),
-                          SizedBox(height: 28),
-                          NewsCard(
-                            imageUrl:
-                                "https://beautifuloregon.com/wp-content/uploads/2024/02/saint-marys-catholic-church-mount-angel-oregon-photography-101-9232-983-1200x1800.jpg",
-                            title:
-                                "'We keep rising to new challenges.' For churches hitler imagined, we forever will. yey",
-                            genre: "Life",
-                            time: "4h",
-                            accountImage:
-                                'https://i.pinimg.com/736x/78/19/4e/78194e018be444f16f0dd87f4925e746.jpg',
-                            accountName: 'USA Today',
-                          ),
+                          isLoading
+                              ? Center(child: CircularProgressIndicator())
+                              : isError
+                              ? Center(child: Text(errMsg ?? ""))
+                              : SizedBox(
+                                  height: 500,
+                                  child: ListView.builder(
+                                    itemCount: news?.data?.length,
+                                    itemBuilder: (context, index) {
+                                      final item = news!.data![index];
+                                      return NewsCard(
+                                        imageUrl: item.imageUrl ?? "",
+                                        title: item.title ?? "",
+                                        genre:
+                                            item.categories?.isNotEmpty == true
+                                            ? item.categories![0].toString()
+                                            : "General",
+                                        time: timeAgo(
+                                          item.publishedAt.toString(),
+                                        ).toString(),
+                                        accountImage:
+                                            'https://i.pinimg.com/736x/78/19/4e/78194e018be444f16f0dd87f4925e746.jpg',
+                                        accountName: item.source ?? "",
+                                      );
+                                    },
+                                  ),
+                                ),
                         ],
                       ),
                     ),
@@ -122,6 +138,31 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
+
+  String timeAgo(String dateTimeStr) {
+    final dateTime = DateTime.parse(dateTimeStr).toLocal();
+    final now = DateTime.now();
+    final difference = now.difference(dateTime);
+
+    if (difference.inSeconds < 60) {
+      return 'just now';
+    } else if (difference.inMinutes < 60) {
+      return '${difference.inMinutes}m ago';
+    } else if (difference.inHours < 24) {
+      return '${difference.inHours}h ago';
+    } else if (difference.inDays < 7) {
+      return '${difference.inDays}d ago';
+    } else if (difference.inDays < 30) {
+      final weeks = (difference.inDays / 7).floor();
+      return '${weeks}w ago';
+    } else if (difference.inDays < 365) {
+      final months = (difference.inDays / 30).floor();
+      return '${months}mo ago';
+    } else {
+      final years = (difference.inDays / 365).floor();
+      return '${years}y ago';
+    }
+  }
 }
 
 class Navbar extends StatelessWidget {
@@ -142,3 +183,59 @@ class Navbar extends StatelessWidget {
     );
   }
 }
+
+
+// Column(
+                          //     children: [
+                          //       SizedBox(height: 16),
+
+                          //       SizedBox(height: 28),
+                          //       NewsCard(
+                          //         imageUrl:
+                          //             "https://media.cnn.com/api/v1/images/stellar/prod/220412091330-9-chance-encounters-sarah-gostling.jpg?c=original",
+                          //         title:
+                          //             "Her train broke down. Her phone died. And then she met her Great great grandparents",
+                          //         genre: "Travel",
+                          //         time: "1h",
+                          //         accountImage:
+                          //             'https://i.pinimg.com/736x/78/19/4e/78194e018be444f16f0dd87f4925e746.jpg',
+                          //         accountName: 'CNN',
+                          //       ),
+                          //       SizedBox(height: 28),
+                          //       NewsCard(
+                          //         imageUrl:
+                          //             "https://ichef.bbci.co.uk/news/480/cpsprodpb/AF92/production/_124164944_gettyimages-501782322.jpg.webp",
+                          //         title:
+                          //             "Russia warship: Moskva sinks in Black Sea",
+                          //         genre: "Europe",
+                          //         time: "4h",
+                          //         accountImage:
+                          //             'https://i.pinimg.com/736x/78/19/4e/78194e018be444f16f0dd87f4925e746.jpg',
+                          //         accountName: 'BBC News',
+                          //       ),
+                          //       SizedBox(height: 28),
+                          //       NewsCard(
+                          //         imageUrl:
+                          //             "https://static.scientificamerican.com/sciam/cache/file/FC384CF9-1EA0-4E3A-99BE273A24C02688_source.jpg?crop=16%3A9%2Csmart&w=1920",
+                          //         title:
+                          //             "Wind power produced more electricity than coal and nucturing baby could ever.",
+                          //         genre: "Money",
+                          //         time: "4h",
+                          //         accountImage:
+                          //             'https://i.pinimg.com/736x/78/19/4e/78194e018be444f16f0dd87f4925e746.jpg',
+                          //         accountName: 'USA Today',
+                          //       ),
+                          //       SizedBox(height: 28),
+                          //       NewsCard(
+                          //         imageUrl:
+                          //             "https://beautifuloregon.com/wp-content/uploads/2024/02/saint-marys-catholic-church-mount-angel-oregon-photography-101-9232-983-1200x1800.jpg",
+                          //         title:
+                          //             "'We keep rising to new challenges.' For churches hitler imagined, we forever will. yey",
+                          //         genre: "Life",
+                          //         time: "4h",
+                          //         accountImage:
+                          //             'https://i.pinimg.com/736x/78/19/4e/78194e018be444f16f0dd87f4925e746.jpg',
+                          //         accountName: 'USA Today',
+                          //       ),
+                          //     ],
+                          //   ),

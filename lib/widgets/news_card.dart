@@ -57,9 +57,15 @@ class NewsCard extends StatelessWidget {
                           ),
                         ),
                         SizedBox(width: 2),
-                        Text(
-                          accountName,
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                        SizedBox(
+                          width: 100,
+                          child: Text(
+                            accountName,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
                         ),
                         SizedBox(width: 4),
                         Icon(
@@ -67,7 +73,7 @@ class NewsCard extends StatelessWidget {
                           size: 20,
                           color: Colors.grey,
                         ),
-                        Text("$time ago", style: TextStyle(color: Colors.grey)),
+                        Text(time, style: TextStyle(color: Colors.grey)),
                       ],
                     ),
                     Icon(Icons.more_horiz, size: 20, color: Colors.grey),
