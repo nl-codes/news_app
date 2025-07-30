@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:news_app/bishal/json/get_screen.dart';
+import 'package:news_app/bishal/json/post_screen.dart';
 import 'package:news_app/screens/author/page/author_profile.dart';
 import 'package:news_app/screens/bookmark/page/bookmark_screen.dart';
 import 'package:news_app/screens/explore/page/explore_screen.dart';
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'News App',
-      initialRoute: '/',
+      initialRoute: '/test/post',
       routes: {
         '/': (context) => LandingScreen(),
         '/onboarding': (context) => OnboardingThree(),
@@ -63,6 +65,9 @@ class MyApp extends StatelessWidget {
         '/search/author': (context) => SearchByAuthorScreen(),
         '/search/news': (context) => SearchByNewsScreen(),
         '/search/topic': (context) => SearchByTopicsScreen(),
+
+        '/test': (context) => GetScreen(),
+        '/test/post': (context) => PostScreen(),
       },
       theme: ThemeData(
         textTheme: GoogleFonts.poppinsTextTheme(),
