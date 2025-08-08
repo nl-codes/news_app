@@ -30,6 +30,7 @@ class BookmarkScreen extends StatelessWidget {
                         accountImage:
                             'https://images.icon-icons.com/70/PNG/512/bbc_news_14062.png',
                         accountName: 'BBC News',
+                        uuid: '',
                       ),
                       SizedBox(height: 28),
                       NewsCard(
@@ -42,6 +43,7 @@ class BookmarkScreen extends StatelessWidget {
                         accountImage:
                             'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/CNN_International_logo.svg/1200px-CNN_International_logo.svg.png',
                         accountName: 'CNN',
+                        uuid: '',
                       ),
                       SizedBox(height: 28),
                       NewsCard(
@@ -53,6 +55,7 @@ class BookmarkScreen extends StatelessWidget {
                         accountImage:
                             'https://images.icon-icons.com/70/PNG/512/bbc_news_14062.png',
                         accountName: 'BBC News',
+                        uuid: '',
                       ),
                       SizedBox(height: 28),
                       NewsCard(
@@ -65,6 +68,7 @@ class BookmarkScreen extends StatelessWidget {
                         accountImage:
                             'https://brandlogos.net/wp-content/uploads/2022/10/usa_today-logo_brandlogos.net_9jygb.png',
                         accountName: 'USA Today',
+                        uuid: '',
                       ),
                       SizedBox(height: 28),
                       NewsCard(
@@ -77,6 +81,7 @@ class BookmarkScreen extends StatelessWidget {
                         accountImage:
                             'https://brandlogos.net/wp-content/uploads/2022/10/usa_today-logo_brandlogos.net_9jygb.png',
                         accountName: 'USA Today',
+                        uuid: '',
                       ),
                     ],
                   ),

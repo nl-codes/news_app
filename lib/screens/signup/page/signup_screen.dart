@@ -101,13 +101,13 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
                     SizedBox(height: 30),
-                    InputField(
+                    _InputField(
                       label: "Username",
                       controller: emailController,
                       errMsg: _emailErr,
                     ),
                     SizedBox(height: 14),
-                    InputField(
+                    _InputField(
                       label: "Password",
                       controller: passwordController,
                       errMsg: _passErr,
@@ -189,37 +189,55 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 }
 
-class InputField extends StatelessWidget {
+class _InputField extends StatefulWidget {
   final String label;
   final TextEditingController controller;
   final String? errMsg;
 
-  const InputField({
-    super.key,
+  const _InputField({
     required this.controller,
     required this.errMsg,
     required this.label,
   });
 
   @override
+  State<_InputField> createState() => _InputFieldState();
+}
+
+class _InputFieldState extends State<_InputField> {
+  bool _obscureText = true;
+  @override
   Widget build(BuildContext context) {
-    final isPassword = label.toLowerCase() == 'password';
+    final isPassword = widget.label.toLowerCase() == 'password';
 
     return Column(
       children: [
         Row(
           children: [
-            Text(label),
+            Text(widget.label),
             Text("*", style: TextStyle(color: Colors.red)),
           ],
         ),
         SizedBox(height: 8),
         TextField(
-          controller: controller,
-          obscureText: label == "Password" ? true : false,
+          controller: widget.controller,
+          obscureText: widget.label == "Password" ? _obscureText : false,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            suffixIcon: isPassword ? Icon(Icons.visibility_off_outlined) : null,
+            suffixIcon: isPassword
+                ? IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                    icon: Icon(
+                      _obscureText
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
+                    ),
+                  )
+                : null,
           ),
         ),
       ],

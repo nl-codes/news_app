@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final topNewsApiModel = topNewsApiModelFromJson(jsonString);
-
 import 'dart:convert';
 
 TopNewsApiModel topNewsApiModelFromJson(String str) =>
@@ -21,7 +17,7 @@ class TopNewsApiModel {
         meta: json["meta"] == null ? null : Meta.fromJson(json["meta"]),
         data: json["data"] == null
             ? []
-            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+            : List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -67,22 +63,28 @@ class Datum {
     uuid: json["uuid"],
     title: json["title"],
     description: json["description"],
-    keywords: keywordsValues.map[json["keywords"]],
+    keywords: json["keywords"] != null
+        ? keywordsValues.map[json["keywords"]]
+        : null,
     snippet: json["snippet"],
     url: json["url"],
     imageUrl: json["image_url"],
-    language: languageValues.map[json["language"]],
+    language: json["language"] != null
+        ? languageValues.map[json["language"]]
+        : null,
     publishedAt: json["published_at"] == null
         ? null
-        : DateTime.parse(json["published_at"]),
+        : DateTime.tryParse(json["published_at"]),
     source: json["source"],
     categories: json["categories"] == null
         ? []
         : List<Category>.from(
-            json["categories"]!.map((x) => categoryValues.map[x]!),
+            json["categories"]
+                .map((x) => categoryValues.map[x])
+                .whereType<Category>(),
           ),
     relevanceScore: json["relevance_score"],
-    locale: localeValues.map[json["locale"]]!,
+    locale: json["locale"] != null ? localeValues.map[json["locale"]] : null,
   );
 
   Map<String, dynamic> toJson() => {
@@ -104,13 +106,13 @@ class Datum {
   };
 }
 
-enum Category { business, entertainment, general, politics }
+enum Category { Business, Entertainment, General, Politics }
 
 final categoryValues = EnumValues({
-  "business": Category.business,
-  "entertainment": Category.entertainment,
-  "general": Category.general,
-  "politics": Category.politics,
+  "Business": Category.Business,
+  "Entertainment": Category.Entertainment,
+  "General": Category.General,
+  "Politics": Category.Politics,
 });
 
 enum Keywords { EMPTY, METRO_US_NEWS_CRIME_MURDERS_THE_BRONX_TORTURE }
@@ -153,13 +155,12 @@ class Meta {
 }
 
 class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
+  final Map<String, T> map;
+  late final Map<T, String> reverseMap;
 
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
+  EnumValues(this.map) {
     reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
   }
+
+  Map<T, String> get reverse => reverseMap;
 }

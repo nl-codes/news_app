@@ -5,7 +5,8 @@ import 'package:news_app/screens/post/widget/detail_account_header.dart';
 import 'package:news_app/screens/post/widget/detail_post_description.dart';
 
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({super.key});
+  final String postUuid;
+  const DetailScreen({super.key, required this.postUuid});
 
   @override
   Widget build(BuildContext context) {

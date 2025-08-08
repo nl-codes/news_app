@@ -10,7 +10,7 @@ class LandingScreen extends StatelessWidget {
         onTap: () {
           Navigator.pushNamed(context, '/onboarding');
         },
-        child: SafeArea(child: Center(child: Image.asset('assets/bleach.png'))),
+        child: SafeArea(child: Center(child: Image.asset('assets/logo.png'))),
       ),
     );
   }

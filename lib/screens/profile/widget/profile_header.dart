@@ -20,7 +20,9 @@ class ProfileHeader extends StatelessWidget {
 }
 
 class EditProfileHeader extends StatelessWidget {
-  const EditProfileHeader({super.key});
+  final String username;
+
+  const EditProfileHeader({super.key, required this.username});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class EditProfileHeader extends StatelessWidget {
           child: Icon(Icons.arrow_back),
         ),
         Text(
-          "Edit Profile",
+          "Edit Profile of $username",
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         Icon(Icons.done),

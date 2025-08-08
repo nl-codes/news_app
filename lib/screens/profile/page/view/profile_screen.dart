@@ -96,11 +96,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     itemBuilder: (context, index) {
                                       final item = news!.data![index];
                                       return NewsCard(
+                                        uuid: item.uuid ?? "",
                                         imageUrl: item.imageUrl ?? "",
                                         title: item.title ?? "",
                                         genre:
                                             item.categories?.isNotEmpty == true
-                                            ? item.categories![0].toString()
+                                            ? item.categories![0].name
                                             : "General",
                                         time: timeAgo(
                                           item.publishedAt.toString(),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/repo/auth_repo.dart';
-import 'package:news_app/screens/signup/page/signup_screen.dart';
 import 'package:news_app/states/bloc/auth_bloc.dart';
+import 'package:news_app/widgets/custom_snackbar.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -69,9 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         isloading = false;
                       });
                       removeError();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Welcome ${state.user.email}!")),
-                      );
+                      showCustomSnackbar(context, state.user.email ?? "");
 
                       Navigator.pushNamed(context, '/home');
 
@@ -133,9 +131,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               Text("Remember me"),
                             ],
                           ),
-                          Text(
-                            "Forgot the password ?",
-                            style: TextStyle(color: Colors.blueAccent),
+                          GestureDetector(
+                            onTap: () => Navigator.pushNamed(
+                              context,
+                              '/forgot-password',
+                            ),
+                            child: Text(
+                              "Forgot the password ?",
+                              style: TextStyle(color: Colors.blueAccent),
+                            ),
                           ),
                         ],
                       ),
@@ -183,12 +187,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           Text("don't have an account ?"),
                           SizedBox(width: 4),
                           GestureDetector(
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SignupScreen(),
-                              ),
-                            ),
+                            onTap: () =>
+                                Navigator.pushNamed(context, '/signup'),
                             child: Text(
                               "Sign Up",
                               style: TextStyle(
@@ -211,7 +211,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-class InputField extends StatelessWidget {
+class InputField extends StatefulWidget {
   final String label;
   final TextEditingController controller;
   final String? errMsg;
@@ -224,25 +224,43 @@ class InputField extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final isPassword = label.toLowerCase() == 'password';
+  State<InputField> createState() => _InputFieldState();
+}
 
+class _InputFieldState extends State<InputField> {
+  bool _obscureText = true;
+  @override
+  Widget build(BuildContext context) {
+    final isPassword = widget.label.toLowerCase() == 'password';
     return Column(
       children: [
         Row(
           children: [
-            Text(label),
+            Text(widget.label),
             Text("*", style: TextStyle(color: Colors.red)),
           ],
         ),
         SizedBox(height: 8),
         TextField(
-          controller: controller,
-          obscureText: label == "Password" ? true : false,
+          controller: widget.controller,
+          obscureText: isPassword ? _obscureText : false,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            errorText: errMsg,
-            suffixIcon: isPassword ? Icon(Icons.visibility_off_outlined) : null,
+            errorText: widget.errMsg,
+            suffixIcon: isPassword
+                ? IconButton(
+                    icon: Icon(
+                      _obscureText
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  )
+                : null,
           ),
         ),
       ],

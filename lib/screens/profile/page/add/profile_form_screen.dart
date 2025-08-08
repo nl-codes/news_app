@@ -5,7 +5,11 @@ import 'package:news_app/screens/profile/widget/profile_header.dart';
 import 'package:news_app/screens/profile/widget/profile_picture_containter.dart';
 
 class ProfileFormScreen extends StatelessWidget {
-  const ProfileFormScreen({super.key});
+  ProfileFormScreen({super.key});
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController fullNameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +33,22 @@ class ProfileFormScreen extends StatelessWidget {
                       ProfileFormTextfield(
                         label: "Username",
                         isRequired: false,
+                        fieldController: usernameController,
                       ),
                       ProfileFormTextfield(
                         label: "Full name",
                         isRequired: false,
+                        fieldController: fullNameController,
                       ),
                       ProfileFormTextfield(
                         label: "Email Address",
                         isRequired: true,
+                        fieldController: emailController,
                       ),
                       ProfileFormTextfield(
                         label: "Phone Number",
                         isRequired: true,
+                        fieldController: phoneController,
                       ),
                     ],
                   ),

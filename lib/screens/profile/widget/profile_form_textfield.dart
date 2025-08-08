@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 class ProfileFormTextfield extends StatelessWidget {
   final String label;
   final bool isRequired;
-  // final TextEditingController fieldController;
+  final TextEditingController fieldController;
   const ProfileFormTextfield({
     required this.label,
     required this.isRequired,
-    // required this.fieldController,
+    required this.fieldController,
     super.key,
   });
 
@@ -24,8 +24,10 @@ class ProfileFormTextfield extends StatelessWidget {
                 ],
               )
             : Text(label),
-        TextField(decoration: InputDecoration(border: OutlineInputBorder())),
-        // TextField(controller: fieldController),
+        TextField(
+          decoration: InputDecoration(border: OutlineInputBorder()),
+          controller: fieldController,
+        ),
         SizedBox(height: 16),
       ],
     );

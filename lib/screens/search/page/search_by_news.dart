@@ -23,6 +23,7 @@ class SearchByNewsScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       NewsCard(
+                        uuid: "",
                         imageUrl:
                             "https://ichef.bbci.co.uk/news/800/cpsprodpb/15192/production/_124181468_zel3.jpg.webp",
                         title:
@@ -35,6 +36,7 @@ class SearchByNewsScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 28),
                       NewsCard(
+                        uuid: "",
                         imageUrl:
                             "https://media.cnn.com/api/v1/images/stellar/prod/220412091330-9-chance-encounters-sarah-gostling.jpg?c=original",
                         title:
@@ -47,6 +49,7 @@ class SearchByNewsScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 28),
                       NewsCard(
+                        uuid: "",
                         imageUrl:
                             "https://ichef.bbci.co.uk/news/480/cpsprodpb/AF92/production/_124164944_gettyimages-501782322.jpg.webp",
                         title: "Russia warship: Moskva sinks in Black Sea",
@@ -58,6 +61,7 @@ class SearchByNewsScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 28),
                       NewsCard(
+                        uuid: "",
                         imageUrl:
                             "https://static.scientificamerican.com/sciam/cache/file/FC384CF9-1EA0-4E3A-99BE273A24C02688_source.jpg?crop=16%3A9%2Csmart&w=1920",
                         title:
@@ -70,6 +74,7 @@ class SearchByNewsScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 28),
                       NewsCard(
+                        uuid: "",
                         imageUrl:
                             "https://beautifuloregon.com/wp-content/uploads/2024/02/saint-marys-catholic-church-mount-angel-oregon-photography-101-9232-983-1200x1800.jpg",
                         title:

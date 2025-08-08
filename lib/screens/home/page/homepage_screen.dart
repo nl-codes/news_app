@@ -1,12 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/core/model/top_news_api_model.dart';
+import 'package:news_app/core/network/news_service.dart';
 import 'package:news_app/screens/home/widget/header.dart';
 import 'package:news_app/widgets/bottom_bar.dart';
 import 'package:news_app/widgets/news_card.dart';
 import 'package:news_app/widgets/search_bar.dart';
 import 'package:news_app/widgets/large_news_card.dart';
 
-class HomepageScreen extends StatelessWidget {
+class HomepageScreen extends StatefulWidget {
   const HomepageScreen({super.key});
+
+  @override
+  State<HomepageScreen> createState() => _HomepageScreenState();
+}
+
+class _HomepageScreenState extends State<HomepageScreen> {
+  NewsService apiService = NewsService();
+  TopNewsApiModel? news;
+
+  bool isLoading = false;
+  bool isError = false;
+  String? errMsg;
+
+  void getNewsInfo() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      final res = await apiService.fetchTopNews();
+      setState(() {
+        isLoading = false;
+      });
+      if (res.statusCode == 200) {
+        setState(() {
+          news = TopNewsApiModel.fromJson(res.data);
+        });
+      } else {
+        setState(() {
+          isError = true;
+          errMsg = "Something went wrong ${res.toString()}";
+        });
+      }
+      print("Data fetched successfully ${res.toString()}");
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      print("Something went wrong with api : $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +106,7 @@ class HomepageScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 16),
                       NewsCard(
+                        uuid: "",
                         imageUrl:
                             "https://ichef.bbci.co.uk/news/800/cpsprodpb/15192/production/_124181468_zel3.jpg.webp",
                         title:
@@ -76,6 +119,7 @@ class HomepageScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 16),
                       NewsCard(
+                        uuid: "",
                         imageUrl:
                             "https://media.cnn.com/api/v1/images/stellar/prod/220412091330-9-chance-encounters-sarah-gostling.jpg?c=original",
                         title:
@@ -88,6 +132,7 @@ class HomepageScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 16),
                       NewsCard(
+                        uuid: "",
                         imageUrl:
                             "https://ichef.bbci.co.uk/news/480/cpsprodpb/AF92/production/_124164944_gettyimages-501782322.jpg.webp",
                         title: "Russia warship: Moskva sinks in Black Sea",
