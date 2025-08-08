@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:news_app/screens/profile/widget/profile_form_textfield.dart';
-// import 'package:news_app/screens/profile/widget/profile_header.dart';
 import 'package:news_app/screens/profile/widget/profile_picture_containter.dart';
 
 class ProfileEditScreen extends StatefulWidget {
@@ -13,7 +12,6 @@ class ProfileEditScreen extends StatefulWidget {
 
 class _ProfileEditScreenState extends State<ProfileEditScreen> {
   var box = Hive.box('Flutter');
-  String username = "user";
   final TextEditingController usernameController = TextEditingController();
 
   @override
@@ -49,7 +47,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                             onTap: () {
                               final newName = usernameController.text.trim();
                               box.put('username', newName);
-                              Navigator.pushNamed(context, '/explore');
+                              Navigator.pushNamed(context, '/profile/view');
                             },
                             child: Icon(Icons.done),
                           ),

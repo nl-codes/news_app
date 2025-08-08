@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:news_app/core/model/top_news_api_model.dart';
 import 'package:news_app/core/network/news_service.dart';
 import 'package:news_app/screens/author/widget/author_page_button.dart';
@@ -17,6 +18,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  var box = Hive.box('Flutter');
+
   NewsService apiService = NewsService();
   TopNewsApiModel? news;
 
@@ -72,7 +75,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SingleChildScrollView(
                       child: Column(
                         children: [
-                          Navbar(),
+                          ProfileHeader(username: box.get('username')),
                           SizedBox(height: 10),
                           ProfileStatus(),
                           SizedBox(height: 20),
@@ -142,8 +145,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 }
 
-class Navbar extends StatelessWidget {
-  const Navbar({super.key});
+class ProfileHeader extends StatelessWidget {
+  final String username;
+  const ProfileHeader({super.key, required this.username});
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +155,7 @@ class Navbar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Icon(Icons.arrow_back, color: Colors.white),
-        Text("Profile", style: TextStyle(fontSize: 24)),
+        Text("Profile : $username", style: TextStyle(fontSize: 24)),
         GestureDetector(
           onTap: () => Navigator.pushNamed(context, '/profile/setting'),
           child: Icon(Icons.settings_outlined),

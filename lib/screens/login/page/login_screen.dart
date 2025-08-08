@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:news_app/states/bloc/auth_bloc.dart';
 import 'package:news_app/widgets/custom_snackbar.dart';
 
@@ -12,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  var box = Hive.box("Flutter");
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   String? _emailErr = "";
@@ -52,9 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                     });
 
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text(error.message)));
+                    showCustomSnackbar(context, "Invalid Credentials");
 
                   case AuthLoading _:
                     setState(() {
@@ -62,6 +62,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     });
 
                   case Authenticated state:
+                    String? username = box.get('username');
+                    box.put('username', username ?? "hehehehe");
+
                     setState(() {
                       isloading = false;
                     });

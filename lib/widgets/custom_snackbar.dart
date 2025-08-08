@@ -8,6 +8,7 @@ void showCustomSnackbar(BuildContext context, String message) {
       elevation: 0,
       margin: const EdgeInsets.only(bottom: 20, left: 16, right: 16),
       content: Container(
+        alignment: Alignment.center,
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: Colors.blueAccent,
