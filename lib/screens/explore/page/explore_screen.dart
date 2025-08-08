@@ -74,6 +74,7 @@ class ExploreScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 28),
                       LargeNewsCard(
+                        uuid: "",
                         imageUrl:
                             "https://ichef.bbci.co.uk/news/480/cpsprodpb/AF92/production/_124164944_gettyimages-501782322.jpg.webp",
                         title: "Russia warship: Moskva sinks in Black Sea",
@@ -85,6 +86,7 @@ class ExploreScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 28),
                       LargeNewsCard(
+                        uuid: "",
                         imageUrl:
                             "https://media.cnn.com/api/v1/images/stellar/prod/220412091330-9-chance-encounters-sarah-gostling.jpg?c=original",
                         title:

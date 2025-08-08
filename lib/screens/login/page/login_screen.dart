@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:news_app/repo/auth_repo.dart';
 import 'package:news_app/states/bloc/auth_bloc.dart';
 import 'package:news_app/widgets/custom_snackbar.dart';
 
@@ -30,179 +29,173 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: BlocProvider(
-          create: (_) => AuthCubit(AuthRepository()),
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(30),
-              child: BlocConsumer<AuthCubit, AuthState>(
-                listener: (context, state) {
-                  switch (state) {
-                    case AuthError error:
-                      setState(() {
-                        isloading = false;
-                        switch (error.type) {
-                          case "email":
-                            removeError();
-                            _emailErr = error.message;
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(30),
+            child: BlocConsumer<AuthCubit, AuthState>(
+              listener: (context, state) {
+                switch (state) {
+                  case AuthError error:
+                    setState(() {
+                      isloading = false;
+                      switch (error.type) {
+                        case "email":
+                          removeError();
+                          _emailErr = error.message;
 
-                          case "password":
-                            removeError();
-                            _passErr = error.message;
+                        case "password":
+                          removeError();
+                          _passErr = error.message;
 
-                          default:
-                            removeError();
-                        }
-                      });
+                        default:
+                          removeError();
+                      }
+                    });
 
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text(error.message)));
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text(error.message)));
 
-                    case AuthLoading _:
-                      setState(() {
-                        isloading = true;
-                      });
+                  case AuthLoading _:
+                    setState(() {
+                      isloading = true;
+                    });
 
-                    case Authenticated state:
-                      setState(() {
-                        isloading = false;
-                      });
-                      removeError();
-                      showCustomSnackbar(context, state.user.email ?? "");
+                  case Authenticated state:
+                    setState(() {
+                      isloading = false;
+                    });
+                    removeError();
+                    showCustomSnackbar(
+                      context,
+                      "Logged in as ${state.user.email}",
+                    );
 
-                      Navigator.pushNamed(context, '/home');
+                    Navigator.pushNamed(context, '/home');
 
-                    case Unauthenticated _:
-                      setState(() {
-                        isloading = false;
-                      });
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Please Login to continue!!!")),
-                      );
-                  }
-                },
-                builder: (context, snapshot) {
-                  final authCubit = context.read<AuthCubit>();
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Hello',
-                        style: TextStyle(
-                          fontSize: 50,
-                          fontWeight: FontWeight.bold,
+                  case Unauthenticated _:
+                    setState(() {
+                      isloading = false;
+                    });
+                }
+              },
+              builder: (context, snapshot) {
+                final authCubit = context.read<AuthCubit>();
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Hello',
+                      style: TextStyle(
+                        fontSize: 50,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Again!',
+                      style: TextStyle(
+                        fontSize: 50,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blueAccent,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 220,
+                      child: Text(
+                        "Welcome back you've been missed",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    InputField(
+                      label: "Username",
+                      controller: emailController,
+                      errMsg: _emailErr,
+                    ),
+                    SizedBox(height: 14),
+                    InputField(
+                      label: "Password",
+                      controller: passwordController,
+                      errMsg: _passErr,
+                    ),
+                    SizedBox(height: 14),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.check_box, color: Colors.blueAccent),
+                            Text("Remember me"),
+                          ],
                         ),
-                      ),
-                      Text(
-                        'Again!',
-                        style: TextStyle(
-                          fontSize: 50,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blueAccent,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 220,
-                        child: Text(
-                          "Welcome back you've been missed",
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                      SizedBox(height: 30),
-                      InputField(
-                        label: "Username",
-                        controller: emailController,
-                        errMsg: _emailErr,
-                      ),
-                      SizedBox(height: 14),
-                      InputField(
-                        label: "Password",
-                        controller: passwordController,
-                        errMsg: _passErr,
-                      ),
-                      SizedBox(height: 14),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(Icons.check_box, color: Colors.blueAccent),
-                              Text("Remember me"),
-                            ],
+                        GestureDetector(
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/forgot-password'),
+                          child: Text(
+                            "Forgot the password ?",
+                            style: TextStyle(color: Colors.blueAccent),
                           ),
-                          GestureDetector(
-                            onTap: () => Navigator.pushNamed(
-                              context,
-                              '/forgot-password',
-                            ),
-                            child: Text(
-                              "Forgot the password ?",
-                              style: TextStyle(color: Colors.blueAccent),
-                            ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          foregroundColor: Colors.white,
+                          padding: EdgeInsets.symmetric(vertical: 12),
+                          textStyle: GoogleFonts.poppins(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
                           ),
-                        ],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                        ),
+                        child: Text("Login"),
+                        onPressed: () => authCubit.signIn(
+                          emailController.text.trim(),
+                          passwordController.text.trim(),
+                        ),
                       ),
-                      SizedBox(height: 20),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blueAccent,
-                            foregroundColor: Colors.white,
-                            padding: EdgeInsets.symmetric(vertical: 12),
-                            textStyle: GoogleFonts.poppins(
-                              fontSize: 16,
-                              color: Colors.black,
+                    ),
+                    SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 100),
+                      child: Text("or continue with"),
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        SocialButton("Facebook"),
+                        SizedBox(width: 20),
+                        SocialButton("Google"),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      children: [
+                        SizedBox(width: 40),
+                        Text("don't have an account ?"),
+                        SizedBox(width: 4),
+                        GestureDetector(
+                          onTap: () => Navigator.pushNamed(context, '/signup'),
+                          child: Text(
+                            "Sign Up",
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
+                              color: Colors.blueAccent,
                             ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                          child: Text("Login"),
-                          onPressed: () => authCubit.signIn(
-                            emailController.text.trim(),
-                            passwordController.text.trim(),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 20),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 100),
-                        child: Text("or continue with"),
-                      ),
-                      SizedBox(height: 20),
-                      Row(
-                        children: [
-                          SocialButton("Facebook"),
-                          SizedBox(width: 20),
-                          SocialButton("Google"),
-                        ],
-                      ),
-                      SizedBox(height: 20),
-                      Row(
-                        children: [
-                          SizedBox(width: 40),
-                          Text("don't have an account ?"),
-                          SizedBox(width: 4),
-                          GestureDetector(
-                            onTap: () =>
-                                Navigator.pushNamed(context, '/signup'),
-                            child: Text(
-                              "Sign Up",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blueAccent,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  );
-                },
-              ),
+                      ],
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         ),

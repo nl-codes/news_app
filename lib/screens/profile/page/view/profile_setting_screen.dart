@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/states/bloc/auth_bloc.dart';
+import 'package:news_app/widgets/custom_snackbar.dart';
 
 class ProfileSettingScreen extends StatelessWidget {
   const ProfileSettingScreen({super.key});
@@ -7,39 +10,58 @@ class ProfileSettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Navbar(),
-              SettingTile(
-                icon: Icons.notifications_outlined,
-                title: "Notification",
-                trailing: Icons.chevron_right,
+        child: BlocConsumer<AuthCubit, AuthState>(
+          listener: (context, state) {},
+          builder: (context, asyncSnapshot) {
+            final authCubit = context.read<AuthCubit>();
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  Navbar(),
+                  SettingTile(
+                    icon: Icons.notifications_outlined,
+                    title: "Notification",
+                    trailing: Icons.chevron_right,
+                  ),
+                  SettingTile(
+                    icon: Icons.lock_outline,
+                    title: "Security",
+                    trailing: Icons.chevron_right,
+                  ),
+                  DarkModeTile(),
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, '/profile/edit'),
+                    child: SettingTile(
+                      icon: Icons.edit,
+                      title: "Edit Profile",
+                      trailing: Icons.chevron_right,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 20,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        authCubit.signOut();
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          '/login',
+                          (route) => false,
+                        );
+                        showCustomSnackbar(context, "You have been logged out");
+                      },
+                      child: Row(
+                        children: [Icon(Icons.logout), Text("Logout")],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              SettingTile(
-                icon: Icons.lock_outline,
-                title: "Security",
-                trailing: Icons.chevron_right,
-              ),
-              DarkModeTile(),
-              GestureDetector(
-                onTap: () => Navigator.pushNamed(context, '/profile/edit'),
-                child: SettingTile(
-                  icon: Icons.edit,
-                  title: "Edit Profile",
-                  trailing: Icons.chevron_right,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 20,
-                ),
-                child: Row(children: [Icon(Icons.logout), Text("Logout")]),
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );

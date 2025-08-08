@@ -45,7 +45,7 @@ class NewsService {
         queryParameters: {
           'api_token': "xocqW1DjQ5vLuoUM16C91WOgwQAfs8VmLhJTmYvq",
           'locale': 'us',
-          'limit': 5,
+          'limit': 3,
         },
       );
       return response;

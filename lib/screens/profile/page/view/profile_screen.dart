@@ -5,6 +5,7 @@ import 'package:news_app/screens/author/widget/author_page_button.dart';
 import 'package:news_app/screens/profile/widget/news_recent_option.dart';
 import 'package:news_app/screens/profile/widget/profile_description.dart';
 import 'package:news_app/screens/profile/widget/profile_status.dart';
+import 'package:news_app/utils/time_ago.dart';
 import 'package:news_app/widgets/bottom_bar.dart';
 import 'package:news_app/widgets/news_card.dart';
 
@@ -90,7 +91,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               : isError
                               ? Center(child: Text(errMsg ?? ""))
                               : SizedBox(
-                                  height: 500,
+                                  height: 300,
                                   child: ListView.builder(
                                     itemCount: news?.data?.length,
                                     itemBuilder: (context, index) {
@@ -138,31 +139,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
-  }
-
-  String timeAgo(String dateTimeStr) {
-    final dateTime = DateTime.parse(dateTimeStr).toLocal();
-    final now = DateTime.now();
-    final difference = now.difference(dateTime);
-
-    if (difference.inSeconds < 60) {
-      return 'just now';
-    } else if (difference.inMinutes < 60) {
-      return '${difference.inMinutes}m ago';
-    } else if (difference.inHours < 24) {
-      return '${difference.inHours}h ago';
-    } else if (difference.inDays < 7) {
-      return '${difference.inDays}d ago';
-    } else if (difference.inDays < 30) {
-      final weeks = (difference.inDays / 7).floor();
-      return '${weeks}w ago';
-    } else if (difference.inDays < 365) {
-      final months = (difference.inDays / 30).floor();
-      return '${months}mo ago';
-    } else {
-      final years = (difference.inDays / 365).floor();
-      return '${years}y ago';
-    }
   }
 }
 

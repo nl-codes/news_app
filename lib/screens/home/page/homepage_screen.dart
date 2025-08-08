@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/core/model/top_news_api_model.dart';
 import 'package:news_app/core/network/news_service.dart';
 import 'package:news_app/screens/home/widget/header.dart';
+import 'package:news_app/utils/time_ago.dart';
 import 'package:news_app/widgets/bottom_bar.dart';
 import 'package:news_app/widgets/news_card.dart';
 import 'package:news_app/widgets/search_bar.dart';
@@ -51,6 +52,12 @@ class _HomepageScreenState extends State<HomepageScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    getNewsInfo();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -76,73 +83,84 @@ class _HomepageScreenState extends State<HomepageScreen> {
                         child: TitleSeeAll(title: "Trending"),
                       ),
                       SizedBox(height: 16),
-                      LargeNewsCard(
-                        imageUrl:
-                            "https://ichef.bbci.co.uk/news/480/cpsprodpb/AF92/production/_124164944_gettyimages-501782322.jpg.webp",
-                        title: "Russia warship: Moskva sinks in Black Sea",
-                        genre: "Europe",
-                        time: "4h",
-                        accountImage:
-                            'https://images.icon-icons.com/70/PNG/512/bbc_news_14062.png',
-                        accountName: 'BBC News',
-                      ),
-                      SizedBox(height: 16),
-                      TitleSeeAll(title: "Latest"),
-                      SizedBox(height: 16),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            CategoryChip("All"),
-                            CategoryChip("Sports"),
-                            CategoryChip("Politics"),
-                            CategoryChip("Business"),
-                            CategoryChip("Health"),
-                            CategoryChip("Travel"),
-                            CategoryChip("Science"),
-                            CategoryChip("Europe"),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 16),
-                      NewsCard(
-                        uuid: "",
-                        imageUrl:
-                            "https://ichef.bbci.co.uk/news/800/cpsprodpb/15192/production/_124181468_zel3.jpg.webp",
-                        title:
-                            "Ukraine's President Zelensky to BBC: Bollod money being paid to the honor of Sosuke Aizen.",
-                        genre: "Europe",
-                        time: "14m",
-                        accountImage:
-                            'https://images.icon-icons.com/70/PNG/512/bbc_news_14062.png',
-                        accountName: 'BBC News',
-                      ),
-                      SizedBox(height: 16),
-                      NewsCard(
-                        uuid: "",
-                        imageUrl:
-                            "https://media.cnn.com/api/v1/images/stellar/prod/220412091330-9-chance-encounters-sarah-gostling.jpg?c=original",
-                        title:
-                            "Her train broke down. Her phone died. And then she met her Great great grandparents",
-                        genre: "Travel",
-                        time: "1h",
-                        accountImage:
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/CNN_International_logo.svg/1200px-CNN_International_logo.svg.png',
-                        accountName: 'CNN',
-                      ),
-                      SizedBox(height: 16),
-                      NewsCard(
-                        uuid: "",
-                        imageUrl:
-                            "https://ichef.bbci.co.uk/news/480/cpsprodpb/AF92/production/_124164944_gettyimages-501782322.jpg.webp",
-                        title: "Russia warship: Moskva sinks in Black Sea",
-                        genre: "Europe",
-                        time: "4h",
-                        accountImage:
-                            'https://images.icon-icons.com/70/PNG/512/bbc_news_14062.png',
-                        accountName: 'BBC News',
-                      ),
-                      SizedBox(height: 16),
+                      isLoading
+                          ? Center(child: CircularProgressIndicator())
+                          : isError
+                          ? Center(child: Text(errMsg ?? ""))
+                          : SizedBox(
+                              height: 500,
+                              child: ListView.builder(
+                                itemCount: news?.data?.length ?? 0,
+                                itemBuilder: (context, index) {
+                                  final item = news!.data![index];
+                                  final genre =
+                                      item.categories?.isNotEmpty == true
+                                      ? item.categories![0].name
+                                      : "General";
+
+                                  if (index == 0) {
+                                    print(item.imageUrl);
+
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        LargeNewsCard(
+                                          uuid: item.uuid ?? "",
+                                          imageUrl: item.imageUrl ?? "",
+                                          title: item.title ?? "Default",
+                                          genre: genre,
+                                          time: timeAgo(
+                                            item.publishedAt.toString(),
+                                          ).toString().split(" ")[0],
+                                          accountImage:
+                                              'https://i.pinimg.com/736x/78/19/4e/78194e018be444f16f0dd87f4925e746.jpg',
+                                          accountName: item.source ?? "my",
+                                        ),
+                                        const SizedBox(height: 16),
+                                        TitleSeeAll(title: "Latest"),
+                                        const SizedBox(height: 16),
+                                        SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            children: [
+                                              CategoryChip("All"),
+                                              CategoryChip("Sports"),
+                                              CategoryChip("Politics"),
+                                              CategoryChip("Business"),
+                                              CategoryChip("Health"),
+                                              CategoryChip("Travel"),
+                                              CategoryChip("Science"),
+                                              CategoryChip("Europe"),
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(height: 16),
+                                      ],
+                                    );
+                                  } else {
+                                    print(item.imageUrl);
+                                    return Padding(
+                                      padding: const EdgeInsets.only(
+                                        bottom: 16,
+                                      ),
+                                      child: NewsCard(
+                                        uuid: item.uuid ?? "",
+                                        imageUrl: item.imageUrl ?? "",
+                                        title: item.title ?? "",
+                                        genre: genre,
+                                        time: timeAgo(
+                                          item.publishedAt.toString(),
+                                        ).toString(),
+                                        accountImage:
+                                            'https://i.pinimg.com/736x/78/19/4e/78194e018be444f16f0dd87f4925e746.jpg',
+                                        accountName: item.source ?? "",
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            ),
                     ],
                   ),
                 ),

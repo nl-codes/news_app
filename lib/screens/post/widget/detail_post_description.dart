@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/screens/post/widget/detail_account_header.dart';
 
 class BodyDescription extends StatelessWidget {
   final String imageUrl;
   final String genre;
   final String postTitle;
   final String postDescription;
+  final String authorImageUrl;
+  final String authorTitle;
+  final String updatedTime;
+  final bool isFollowed;
+
   const BodyDescription({
     super.key,
     required this.imageUrl,
     required this.genre,
     required this.postTitle,
     required this.postDescription,
+    required this.authorImageUrl,
+    required this.authorTitle,
+    required this.updatedTime,
+    required this.isFollowed,
   });
 
   @override
@@ -18,6 +28,13 @@ class BodyDescription extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        AccountHeader(
+          imageUrl: authorImageUrl,
+          accountTitle: authorTitle,
+          updatedTime: updatedTime,
+          isFollowed: isFollowed,
+        ),
+        SizedBox(height: 10),
         SizedBox(
           width: double.infinity,
           height: 250,
@@ -32,6 +49,7 @@ class BodyDescription extends StatelessWidget {
         ),
         SizedBox(height: 10),
         Text(postDescription),
+        SizedBox(height: 8),
       ],
     );
   }

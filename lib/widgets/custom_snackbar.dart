@@ -21,7 +21,7 @@ void showCustomSnackbar(BuildContext context, String message) {
           ],
         ),
         child: Text(
-          "Logged in as $message",
+          message,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),

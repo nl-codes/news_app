@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/screens/post/page/detail.dart';
 
 class LargeNewsCard extends StatelessWidget {
   final String imageUrl;
@@ -7,6 +8,7 @@ class LargeNewsCard extends StatelessWidget {
   final String time;
   final String accountImage;
   final String accountName;
+  final String uuid;
 
   const LargeNewsCard({
     required this.imageUrl,
@@ -15,13 +17,17 @@ class LargeNewsCard extends StatelessWidget {
     required this.time,
     required this.accountImage,
     required this.accountName,
+    required this.uuid,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, '/post/view'),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => DetailScreen(postUuid: uuid)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -30,7 +36,18 @@ class LargeNewsCard extends StatelessWidget {
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               height: 200,
-              child: Image.network(imageUrl, fit: BoxFit.cover),
+              child: Image.network(
+                imageUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.network(
+                    "https://i.pinimg.com/736x/78/19/4e/78194e018be444f16f0dd87f4925e746.jpg",
+                    fit: BoxFit.cover,
+                    width: MediaQuery.of(context).size.width,
+                    height: 200,
+                  );
+                },
+              ),
             ),
           ),
 

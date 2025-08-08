@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:news_app/bishal/json/get_screen.dart';
 import 'package:news_app/bishal/json/post_screen.dart';
+import 'package:news_app/repo/auth_repo.dart';
 import 'package:news_app/screens/author/page/author_profile.dart';
 import 'package:news_app/screens/bookmark/page/bookmark_screen.dart';
 import 'package:news_app/screens/explore/page/explore_screen.dart';
@@ -24,13 +26,19 @@ import 'package:news_app/screens/search/page/search_by_topics.dart';
 import 'package:news_app/screens/search/page/serach_by_author.dart';
 import 'package:news_app/screens/signup/page/signup_screen.dart';
 import 'package:news_app/screens/trending/page/trending_screen.dart';
+import 'package:news_app/states/bloc/auth_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox('Flutter');
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(
+    BlocProvider(
+      create: (_) => AuthCubit(AuthRepository()),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
