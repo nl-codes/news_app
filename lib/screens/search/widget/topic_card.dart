@@ -41,7 +41,7 @@ class TopicCard extends StatelessWidget {
           ),
         ),
         SizedBox(width: 4),
-        SaveButton(isSaved: isSaved),
+        SaveButton(initiallySaved: isSaved),
       ],
     );
   }

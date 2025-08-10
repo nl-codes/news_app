@@ -3,7 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/repo/auth_repo.dart';
 import 'package:news_app/screens/login/page/login_screen.dart';
+import 'package:news_app/screens/login/widget/input_field.dart';
+import 'package:news_app/screens/login/widget/social_button.dart';
 import 'package:news_app/states/bloc/auth_bloc.dart';
+import 'package:news_app/widgets/custom_snackbar.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -54,9 +57,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       }
                     });
 
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text(error.message)));
+                    showCustomSnackbar(context, error.message);
 
                   case AuthLoading _:
                     setState(() {
@@ -68,15 +69,14 @@ class _SignupScreenState extends State<SignupScreen> {
                       isloading = false;
                     });
                     removeError();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Welcome ${state.user.email}!")),
-                    );
+                    showCustomSnackbar(context, "Welcome ${state.user.email}!");
                   case Unauthenticated _:
                     setState(() {
                       isloading = false;
                     });
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Please Sign up to continue!!!")),
+                    showCustomSnackbar(
+                      context,
+                      "Please Sign up to continue!!!",
                     );
                 }
               },
@@ -101,13 +101,13 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
                     SizedBox(height: 30),
-                    _InputField(
+                    InputField(
                       label: "Username",
                       controller: emailController,
                       errMsg: _emailErr,
                     ),
                     SizedBox(height: 14),
-                    _InputField(
+                    InputField(
                       label: "Password",
                       controller: passwordController,
                       errMsg: _passErr,
@@ -184,100 +184,6 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _InputField extends StatefulWidget {
-  final String label;
-  final TextEditingController controller;
-  final String? errMsg;
-
-  const _InputField({
-    required this.controller,
-    required this.errMsg,
-    required this.label,
-  });
-
-  @override
-  State<_InputField> createState() => _InputFieldState();
-}
-
-class _InputFieldState extends State<_InputField> {
-  bool _obscureText = true;
-  @override
-  Widget build(BuildContext context) {
-    final isPassword = widget.label.toLowerCase() == 'password';
-
-    return Column(
-      children: [
-        Row(
-          children: [
-            Text(widget.label),
-            Text("*", style: TextStyle(color: Colors.red)),
-          ],
-        ),
-        SizedBox(height: 8),
-        TextField(
-          controller: widget.controller,
-          obscureText: widget.label == "Password" ? _obscureText : false,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            suffixIcon: isPassword
-                ? IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _obscureText = !_obscureText;
-                      });
-                    },
-                    icon: Icon(
-                      _obscureText
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined,
-                    ),
-                  )
-                : null,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class SocialButton extends StatelessWidget {
-  final String platform;
-  const SocialButton(this.platform, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final isFacebook = platform.toLowerCase() == 'facebook';
-    return ElevatedButton(
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white70,
-        textStyle: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      ),
-      child: Row(
-        children: [
-          isFacebook
-              ? Image.network(
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/2023_Facebook_icon.svg/2048px-2023_Facebook_icon.svg.png',
-                  height: 25,
-                  width: 25,
-                )
-              : Image.network(
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/250px-Google_Favicon_2025.svg.png',
-                  height: 25,
-                  width: 25,
-                ),
-          SizedBox(width: 10),
-          Text(
-            platform,
-            style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
-          ),
-        ],
       ),
     );
   }

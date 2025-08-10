@@ -72,18 +72,3 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     );
   }
 }
-
-// ProfileFormTextfield(
-                      //   label: "Full name",
-                      //   isRequired: false,
-                      // ),
-                      // ProfileFormTextfield(
-                      //   label: "Email Address",
-                      //   isRequired: true,
-                      // ),
-                      // ProfileFormTextfield(
-                      //   label: "Phone Number",
-                      //   isRequired: true,
-                      // ),
-                      // ProfileFormTextfield(label: "Bio", isRequired: false),
-                      // ProfileFormTextfield(label: "Website", isRequired: false),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/screens/post/page/detail.dart';
+import 'package:news_app/screens/post/page/detail_screen.dart';
 
 class NewsCard extends StatelessWidget {
   final String uuid;

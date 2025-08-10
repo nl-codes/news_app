@@ -14,7 +14,7 @@ import 'package:news_app/screens/login/page/login_screen.dart';
 import 'package:news_app/screens/notification/page/notification_screen.dart';
 import 'package:news_app/screens/onboarding/page/onboarding_three.dart';
 import 'package:news_app/screens/post/page/create/create_news_screen.dart';
-import 'package:news_app/screens/post/page/detail.dart';
+import 'package:news_app/screens/post/page/detail_screen.dart';
 import 'package:news_app/screens/profile/page/add/profile_form_screen.dart';
 import 'package:news_app/screens/profile/page/edit/profile_edit_screen.dart';
 import 'package:news_app/screens/profile/page/view/profile_screen.dart';

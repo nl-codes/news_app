@@ -19,10 +19,13 @@ class ProfileSettingScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Navbar(),
-                  SettingTile(
-                    icon: Icons.notifications_outlined,
-                    title: "Notification",
-                    trailing: Icons.chevron_right,
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, '/notification'),
+                    child: SettingTile(
+                      icon: Icons.notifications_outlined,
+                      title: "Notification",
+                      trailing: Icons.chevron_right,
+                    ),
                   ),
                   SettingTile(
                     icon: Icons.lock_outline,
@@ -95,9 +98,15 @@ class SettingTile extends StatelessWidget {
   }
 }
 
-class DarkModeTile extends StatelessWidget {
+class DarkModeTile extends StatefulWidget {
   const DarkModeTile({super.key});
 
+  @override
+  State<DarkModeTile> createState() => _DarkModeTileState();
+}
+
+class _DarkModeTileState extends State<DarkModeTile> {
+  bool isEnabled = true;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -106,7 +115,17 @@ class DarkModeTile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(children: [Icon(Icons.dark_mode_outlined), Text("Dark Mode")]),
-          Icon(Icons.toggle_off_outlined, size: 32),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                isEnabled = !isEnabled;
+              });
+            },
+            child: Icon(
+              size: 32,
+              isEnabled ? Icons.toggle_on_outlined : Icons.toggle_off_outlined,
+            ),
+          ),
         ],
       ),
     );

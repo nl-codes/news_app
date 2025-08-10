@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/model/single_news_api_model.dart';
 import 'package:news_app/core/network/news_service.dart';
-import 'package:news_app/screens/bookmark/page/bookmark_screen.dart';
-import 'package:news_app/screens/post/page/comment.dart';
+import 'package:news_app/screens/post/widget/detail_footer.dart';
+import 'package:news_app/screens/post/widget/detail_navbar.dart';
 import 'package:news_app/screens/post/widget/detail_post_description.dart';
 import 'package:news_app/utils/random_words_adder.dart';
 import 'package:news_app/utils/time_ago.dart';
@@ -70,7 +70,7 @@ class _DetailScreenState extends State<DetailScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Navbar(),
+              child: DetailNavbar(),
             ),
             const SizedBox(height: 10),
             Expanded(
@@ -116,108 +116,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 ),
               ),
             ),
-            Footer(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class Navbar extends StatelessWidget {
-  const Navbar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: Icon(Icons.arrow_back),
-        ),
-        Row(
-          children: [
-            Icon(Icons.share_outlined),
-            SizedBox(width: 12),
-            Icon(Icons.more_vert),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class Footer extends StatefulWidget {
-  const Footer({super.key});
-
-  @override
-  State<Footer> createState() => _FooterState();
-}
-
-class _FooterState extends State<Footer> {
-  bool _isLiked = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black87,
-            offset: Offset(0, -0.5),
-            blurRadius: 1,
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 28),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _isLiked = !_isLiked;
-                    });
-                  },
-                  child: Icon(
-                    color: Colors.pink,
-                    _isLiked ? Icons.favorite : Icons.favorite_outline,
-                  ),
-                ),
-                SizedBox(width: 4),
-                Text("24.5K", style: TextStyle(fontWeight: FontWeight.bold)),
-                SizedBox(width: 20),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => CommentScreen()),
-                    );
-                  },
-                  child: Row(
-                    children: [
-                      Icon(Icons.message_outlined),
-                      SizedBox(width: 4),
-                      Text("1K", style: TextStyle(fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => BookmarkScreen()),
-                );
-              },
-              child: Icon(Icons.bookmark, color: Colors.blue),
-            ),
+            DetailFooter(),
           ],
         ),
       ),

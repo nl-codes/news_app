@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/model/top_news_api_model.dart';
 import 'package:news_app/core/network/news_service.dart';
+import 'package:news_app/screens/home/widget/category_chip.dart';
 import 'package:news_app/screens/home/widget/header.dart';
+import 'package:news_app/screens/home/widget/title_see_all.dart';
 import 'package:news_app/utils/time_ago.dart';
 import 'package:news_app/widgets/bottom_bar.dart';
 import 'package:news_app/widgets/news_card.dart';
@@ -118,20 +120,8 @@ class _HomepageScreenState extends State<HomepageScreen> {
                                         const SizedBox(height: 16),
                                         TitleSeeAll(title: "Latest"),
                                         const SizedBox(height: 16),
-                                        SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: Row(
-                                            children: [
-                                              CategoryChip("All"),
-                                              CategoryChip("Sports"),
-                                              CategoryChip("Politics"),
-                                              CategoryChip("Business"),
-                                              CategoryChip("Health"),
-                                              CategoryChip("Travel"),
-                                              CategoryChip("Science"),
-                                              CategoryChip("Europe"),
-                                            ],
-                                          ),
+                                        CategorySelector(
+                                          initialSelection: "All",
                                         ),
                                         const SizedBox(height: 16),
                                       ],
@@ -167,34 +157,6 @@ class _HomepageScreenState extends State<HomepageScreen> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class TitleSeeAll extends StatelessWidget {
-  final String title;
-  const TitleSeeAll({required this.title, super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-        Text("See all"),
-      ],
-    );
-  }
-}
-
-class CategoryChip extends StatelessWidget {
-  final String label;
-  const CategoryChip(this.label, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 12),
-      child: Text(label),
     );
   }
 }
