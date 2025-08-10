@@ -1,20 +1,39 @@
 import 'package:flutter/material.dart';
 
-class NewsRecentOption extends StatelessWidget {
+class NewsRecentOption extends StatefulWidget {
   final String selectedOption;
-  const NewsRecentOption({required this.selectedOption, super.key});
+  final ValueChanged<String>? onSelectionChanged; // Callback for parent widgets
+
+  const NewsRecentOption({
+    this.selectedOption = "News",
+    this.onSelectionChanged,
+    super.key,
+  });
+
+  @override
+  State<NewsRecentOption> createState() => _NewsRecentOptionState();
+}
+
+class _NewsRecentOptionState extends State<NewsRecentOption> {
+  late String selectedOption;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedOption = widget.selectedOption;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _buildOption("News"),
-            SizedBox(width: 20),
+            const SizedBox(width: 20),
             _buildOption("Recent"),
           ],
         ),
@@ -25,19 +44,27 @@ class NewsRecentOption extends StatelessWidget {
   Widget _buildOption(String label) {
     final bool isSelected = selectedOption.toLowerCase() == label.toLowerCase();
 
-    return Column(
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: isSelected ? Colors.black : Colors.grey[600],
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedOption = label;
+        });
+        widget.onSelectionChanged?.call(label);
+      },
+      child: Column(
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: isSelected ? Colors.black : Colors.grey[600],
+            ),
           ),
-        ),
-        SizedBox(height: 4),
-        if (isSelected)
-          Container(height: 3, width: 40, color: Colors.blueAccent),
-      ],
+          const SizedBox(height: 4),
+          if (isSelected)
+            Container(height: 3, width: 40, color: Colors.blueAccent),
+        ],
+      ),
     );
   }
 }

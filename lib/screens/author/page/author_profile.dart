@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/screens/author/widget/account_description.dart';
 import 'package:news_app/screens/author/widget/account_status.dart';
+import 'package:news_app/screens/author/widget/author_navbar.dart';
 import 'package:news_app/screens/author/widget/author_page_button.dart';
 import 'package:news_app/screens/profile/widget/news_recent_option.dart';
 import 'package:news_app/widgets/news_card.dart';
@@ -17,7 +18,7 @@ class AuthorProfileScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Navbar(),
+                AuthorNavbar(),
                 SizedBox(height: 20),
                 AccountStatus(),
                 SizedBox(height: 20),
@@ -86,24 +87,6 @@ class AuthorProfileScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class Navbar extends StatelessWidget {
-  const Navbar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: Icon(Icons.arrow_back),
-        ),
-        Icon(Icons.more_vert),
-      ],
     );
   }
 }

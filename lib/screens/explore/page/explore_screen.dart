@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:news_app/screens/search/widget/topic_card.dart';
 import 'package:news_app/widgets/bottom_bar.dart';
 import 'package:news_app/widgets/large_news_card.dart';
@@ -9,8 +8,6 @@ class ExploreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String username = Hive.box('Flutter').get('username');
-    print("data = $username");
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -23,7 +20,7 @@ class ExploreScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Explore $username",
+                        "Explore",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 36,

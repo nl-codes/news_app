@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/model/top_news_api_model.dart';
 import 'package:news_app/core/network/news_service.dart';
+import 'package:news_app/screens/home/widget/category_chip.dart';
 import 'package:news_app/screens/home/widget/header.dart';
+import 'package:news_app/screens/home/widget/title_see_all.dart';
 import 'package:news_app/utils/time_ago.dart';
 import 'package:news_app/widgets/bottom_bar.dart';
 import 'package:news_app/widgets/news_card.dart';
@@ -65,7 +67,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
               child: HomePageHeader(),
             ),
             Expanded(
@@ -88,7 +90,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                           : isError
                           ? Center(child: Text(errMsg ?? ""))
                           : SizedBox(
-                              height: 500,
+                              height: 524,
                               child: ListView.builder(
                                 itemCount: news?.data?.length ?? 0,
                                 itemBuilder: (context, index) {
@@ -99,8 +101,6 @@ class _HomepageScreenState extends State<HomepageScreen> {
                                       : "General";
 
                                   if (index == 0) {
-                                    print(item.imageUrl);
-
                                     return Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -120,26 +120,13 @@ class _HomepageScreenState extends State<HomepageScreen> {
                                         const SizedBox(height: 16),
                                         TitleSeeAll(title: "Latest"),
                                         const SizedBox(height: 16),
-                                        SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: Row(
-                                            children: [
-                                              CategoryChip("All"),
-                                              CategoryChip("Sports"),
-                                              CategoryChip("Politics"),
-                                              CategoryChip("Business"),
-                                              CategoryChip("Health"),
-                                              CategoryChip("Travel"),
-                                              CategoryChip("Science"),
-                                              CategoryChip("Europe"),
-                                            ],
-                                          ),
+                                        CategorySelector(
+                                          initialSelection: "All",
                                         ),
                                         const SizedBox(height: 16),
                                       ],
                                     );
                                   } else {
-                                    print(item.imageUrl);
                                     return Padding(
                                       padding: const EdgeInsets.only(
                                         bottom: 16,
@@ -170,34 +157,6 @@ class _HomepageScreenState extends State<HomepageScreen> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class TitleSeeAll extends StatelessWidget {
-  final String title;
-  const TitleSeeAll({required this.title, super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-        Text("See all"),
-      ],
-    );
-  }
-}
-
-class CategoryChip extends StatelessWidget {
-  final String label;
-  const CategoryChip(this.label, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 12),
-      child: Text(label),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/screens/bookmark/widget/bookmark_header.dart';
 import 'package:news_app/widgets/news_card.dart';
 import 'package:news_app/widgets/bottom_bar.dart';
-import 'package:news_app/widgets/search_bar.dart';
 
 class BookmarkScreen extends StatelessWidget {
   const BookmarkScreen({super.key});
@@ -13,7 +13,7 @@ class BookmarkScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Header(),
+            BookmarkHeader(),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
@@ -91,27 +91,6 @@ class BookmarkScreen extends StatelessWidget {
             BottomBar(selectedIcon: "Bookmark"),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class Header extends StatelessWidget {
-  const Header({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(24.0, 24, 24, 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Bookmark",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 36),
-          ),
-          SearchingBar(),
-        ],
       ),
     );
   }
