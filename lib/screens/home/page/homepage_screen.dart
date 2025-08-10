@@ -65,7 +65,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
               child: HomePageHeader(),
             ),
             Expanded(
@@ -88,7 +88,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                           : isError
                           ? Center(child: Text(errMsg ?? ""))
                           : SizedBox(
-                              height: 500,
+                              height: 524,
                               child: ListView.builder(
                                 itemCount: news?.data?.length ?? 0,
                                 itemBuilder: (context, index) {
@@ -99,8 +99,6 @@ class _HomepageScreenState extends State<HomepageScreen> {
                                       : "General";
 
                                   if (index == 0) {
-                                    print(item.imageUrl);
-
                                     return Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -139,7 +137,6 @@ class _HomepageScreenState extends State<HomepageScreen> {
                                       ],
                                     );
                                   } else {
-                                    print(item.imageUrl);
                                     return Padding(
                                       padding: const EdgeInsets.only(
                                         bottom: 16,

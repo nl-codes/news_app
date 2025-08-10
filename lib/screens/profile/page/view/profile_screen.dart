@@ -94,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               : isError
                               ? Center(child: Text(errMsg ?? ""))
                               : SizedBox(
-                                  height: 300,
+                                  height: 264,
                                   child: ListView.builder(
                                     itemCount: news?.data?.length,
                                     itemBuilder: (context, index) {

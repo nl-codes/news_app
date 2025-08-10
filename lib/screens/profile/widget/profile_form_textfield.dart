@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class ProfileFormTextfield extends StatelessWidget {
   final String label;
@@ -13,6 +14,9 @@ class ProfileFormTextfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var box = Hive.box('Flutter');
+    final String username = box.get('username');
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -25,7 +29,10 @@ class ProfileFormTextfield extends StatelessWidget {
               )
             : Text(label),
         TextField(
-          decoration: InputDecoration(border: OutlineInputBorder()),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: username,
+          ),
           controller: fieldController,
         ),
         SizedBox(height: 16),
